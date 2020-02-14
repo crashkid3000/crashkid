@@ -1,0 +1,7 @@
+{% if self.link == pageurl %}
+    <li class="nav-item active">
+{% else %}
+    <li class="nav-item">
+{% endif %}
+        <a class="nav-link" href="{{ self.link }}">{{self.text}} {% if self.link == pageurl %}<span class="sr-only">(current)</span>{% endif %}</a>
+    </li>

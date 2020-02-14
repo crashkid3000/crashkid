@@ -1,0 +1,138 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% for tune in tunes %}
+
+    {% image tune.preview_image height-400 as tune_thumb %}
+    {% if tune.tune_type == 'C' %}
+    <div class="card mb-3 border-info" style="display:inline-flex;max-width:45%">
+    {% elif tune.tune_type == 'R' %}
+    <div class="card mb-3 border-warning" style="display:inline-flex;max-width:45%">
+    {% elif tune.tune_type == 'O' %}
+    <div class="card mb-3 border-success" style="display:inline-flex;max-width:45%">
+    {% else %}
+    <div class="card mb-3" style="display:inline-flex;max-width:45%">
+    {% endif %}
+      <h3 class="card-header">{{ tune.name }}</h3>
+      <div class="card-body">
+          <h5>{{ tune.car }}</h5>
+          <h6>{{ tune.get_tune_type_display }} / {{ tune.get_tune_characteristic_display }}</h6>
+          <div> {# other data that didn't fit into the bars/table #}
+              {% if tune.pi == 999 %}X
+              {% elif tune.pi > 900 %}S2
+              {% elif tune.pi > 800 %}S1
+              {% elif tune.pi > 700 %}A
+              {% elif tune.pi > 600 %}B
+              {% elif tune.pi > 500 %}C
+              {% else %}D{% endif %} {{ tune.pi }} | {{ tune.get_drivetrain_display }}
+          </div>
+      </div>
+        {% if tune_thumb %}
+            <img class="center" style="object-fit:contain" src="{{ tune_thumb.url }}" alt="{{ tune_thumb.alt }}"/>
+        {% endif %}
+      <div class="card-body">
+          {% if tune.livery_name %}<small class="text-muted">Livery: {{ tune.livery_name }}</small>{% endif %}
+          <ul class="nav nav-tabs">
+              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#simple{{forloop.counter}}">Simple data</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#detail{{forloop.counter}}">Detailed data</a></li>
+          </ul>
+          <div id="tabContent{{forloop.counter}}" class="tab-content">
+              <div class="tab-pane fade active show" id="simple{{forloop.counter}}">
+                  <div class="row" style="padding-top:10px">
+                      <div class="col-4">
+                          Speed:
+                      </div>
+                      <div class="col">
+                          <div class="progress">
+                              <div class="progress-bar {% if tune.tune_type == 'C' %}bg-info{% elif tune.tune_type == 'R' %}bg-warning{% elif tune.tune_type == 'O' %}bg-success{%endif%}" role="progressbar" style="width:{{ tune.rating_speed }}%" aria-valuenow="{{ tune.rating_speed }}" aria-valuemin="0" aria-valuemax="100">{{ tune.rating_speed }}</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" style="padding-top:5px">
+                      <div class="col-4">
+                          Handling:
+                      </div>
+                      <div class="col">
+                          <div class="progress">
+                              <div class="progress-bar {% if tune.tune_type == 'C' %}bg-info{% elif tune.tune_type == 'R' %}bg-warning{% elif tune.tune_type == 'O' %}bg-success{%endif%}" role="progressbar" style="width:{{ tune.rating_handling }}%" aria-valuenow="{{ tune.rating_handling }}" aria-valuemin="0" aria-valuemax="100">{{ tune.rating_handling }}</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" style="padding-top:5px">
+                      <div class="col-4">
+                          Accel.:
+                      </div>
+                      <div class="col">
+                          <div class="progress">
+                              <div class="progress-bar {% if tune.tune_type == 'C' %}bg-info{% elif tune.tune_type == 'R' %}bg-warning{% elif tune.tune_type == 'O' %}bg-success{%endif%}" role="progressbar" style="width:{{ tune.rating_accel }}%" aria-valuenow="{{ tune.rating_accel }}" aria-valuemin="0" aria-valuemax="100">{{ tune.rating_accel }}</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" style="padding-top:5px">
+                      <div class="col-4">
+                          Start:
+                      </div>
+                      <div class="col">
+                          <div class="progress">
+                              <div class="progress-bar {% if tune.tune_type == 'C' %}bg-info{% elif tune.tune_type == 'R' %}bg-warning{% elif tune.tune_type == 'O' %}bg-success{%endif%}" role="progressbar" style="width:{{ tune.rating_start }}%" aria-valuenow="{{ tune.rating_start }}" aria-valuemin="0.0" aria-valuemax="100">{{ tune.rating_start }}</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" style="padding-top:5px">
+                      <div class="col-4">
+                          Braking:
+                      </div>
+                      <div class="col">
+                          <div class="progress">
+                              <div class="progress-bar {% if tune.tune_type == 'C' %}bg-info{% elif tune.tune_type == 'R' %}bg-warning{% elif tune.tune_type == 'O' %}bg-success{%endif%}" role="progressbar" style="width:{{ tune.rating_brakes }}%" aria-valuenow="{{ tune.rating_brakes }}" aria-valuemin="0.0" aria-valuemax="100">{{ tune.rating_brakes }}</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="detail{{forloop.counter}}">
+                  <span><p style="padding-top:10px">Drivetrain: {{ tune.get_drivetrain_display }} | Intake: {{ tune.get_intake_display }}</p></span>
+                  <table class="table table-hover">
+                      <thead></thead>
+                      <tr>
+                          <th scope="row">Speed</th>
+                          <td>{{ tune.speed }} km/h</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Power</th>
+                          <td>{{ tune.power }} kW</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Torque</th>
+                          <td>{{ tune.torque }} Nm</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">0-100 km/h</th>
+                          <td>{{ tune.accel100 }} s</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">0-160 km/h</th>
+                          <td>{{ tune.accel160 }} s</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Grip @ 100 km/h</th>
+                          <td>{{ tune.grip100 }} G</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Grip @ 160 km/h</th>
+                          <td>{{ tune.grip160 }} G</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Weight</th>
+                          <td>{{ tune.weight }} kg</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Weight Distrib.</th>
+                          <td>{{ tune.weight_distrib }} %</td>
+                      </tr>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+    </div>
+
+{% endfor %}
+

@@ -1,0 +1,51 @@
+.red-color {
+    background-color:#A00000;
+    color:white;
+}
+
+.dark-color {
+    background-color:#606060
+    color:white;
+}
+
+.parallax340 {
+    height:340px;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.parallax4 {
+    height:270px;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.parallax3 {
+    height:360px;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.parallax5 {
+    height:216px;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.title-image {
+    max-height:500px;
+    display:inline;
+}
+
+.thumbnail-image {
+    max-height:100px;
+    display:inline-block;
+}

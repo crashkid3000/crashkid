@@ -1,0 +1,37 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% for champ in champs %}
+
+    {% image champ.championship_image height-480 as champ_image %}
+      <div class="card mb-3 center" style="display:inline-flex;min-width:51%">
+          <h3 class="card-header">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}<span style="text-center">{{ champ.name }}</span>{% endif %}</h3>
+      <div class="card-body">
+          <h5 class="card-title">{{ champ.get_type_display }} | Prize: {{ champ.prize_money }} Cr.</h5>
+          <p>{{ champ.description }}</p>
+          {% if champ.further_prize %}
+          <p>Additional prize: {{ champ.further_prize }}</p>
+          {% endif %}
+      </div>
+      <hr class="mr-4 center">
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <div class="row">
+                  {% for event in champ.events.all %}
+                        <div class="col" style="border-left:1px solid #AAAAA;margin:auto">
+                            <a href="/fh4_tracks?id={{ event.id }}">
+                            {% if event.event_image %}
+                                {% image event.event_image fill-200x112 as event_thumbnail %}
+                                <img src="{{ event_thumbnail.url }}" alt="{{ event_thumbnail.alt }}"/>
+                            {% else %}
+                                <small>{{ event.name }}</small>
+                            {% endif %}
+                            </a>
+                        </div>
+                  {% endfor %}
+              </div>
+          </li>
+
+      </ul>
+    </div>
+
+{% endfor %}
+

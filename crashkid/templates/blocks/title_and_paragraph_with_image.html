@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image self.image fill-1920x1080 as parallaximg %}
+<div>
+    <h2>{{ self.title }}</h2>
+    <p>{{ self.text | richtext }}</p>
+</div>
+
+<div style="background-image:url({{ parallaximg.url }})" class="parallax340"></div>
+<div style="height:50px"><!-- I am nothging else but a spacer --></div>

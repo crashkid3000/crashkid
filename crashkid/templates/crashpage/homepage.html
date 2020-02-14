@@ -1,0 +1,23 @@
+{% extends "default.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block cs_content %}
+    </div> {# end the container div to make banner go across whole screen #}
+    {% image self.banner_bg_image min-1600x900 as bgimg %}
+    <div class="jumbotron" style="background-image:url({{ bgimg.url }});background-position:center;background-size:cover">
+        <div class="container">
+            <h1 class="display-3" {% if self.banner_is_bg_dark %}style="color:#FFFFFF;text-shadow: 2px 2px #222222"{% endif %}>{{ self.banner_title }}</h1>
+            <p class="lead">{{ self.banner_text | richtext }}</p>
+            {% if self.banner_text_sub %}
+            <hr class="my-4">
+            <p> {{self.banner_text_sub | richtext }} </p>
+            {% endif %}
+        </div>
+
+</div>
+<div class="container"> {# reopen container div #}
+
+{% for block in self.paragraphs %}
+      {% include_block block %}
+  {% endfor %}
+
+{% endblock %}

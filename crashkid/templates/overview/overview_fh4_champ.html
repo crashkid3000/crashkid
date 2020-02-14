@@ -1,0 +1,39 @@
+{% extends "default.html" %}
+{% load fh4tracks wagtailcore_tags %}
+{% block cs_content %}
+
+<h1>{{ self.title }}</h1>
+
+<p>{{ self.intro | richtext }}</p>
+
+{% fh4_all_champs url=request.get_full_path %}
+
+{# Pagination #}
+{% if champs.paginator.num_pages > 1 and not url_has_id %}
+<div class="row col-lg-12" style="margin:auto">
+
+    <div>
+        <ul class="pagination">
+            {% if champs.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ champs.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+
+            {% for page_num in champs.paginator.page_range %}
+            <li class="page-item">
+                <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
+            </li>
+            {% endfor %}
+
+            {% if champs.has_next %}
+            <li class="page-item">
+                <a href="?page={{ champs.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

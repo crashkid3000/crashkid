@@ -1,0 +1,13 @@
+{% extends "default.html" %}
+{% load wagtailcore_tags %}
+
+{% block cs_content %}
+
+<span><h1>{% if self.use_both_titles is True or not self.alt_title %}{{ self.title }}{% else %}{{ self.alt_title }}{% endif %}</h1></span>
+<span><h1>{% if self.alt_title and self.use_both_titles %}{{ self.alt_title }}{% endif %}</h1></span>
+{% if self.subheading %}
+<span style="margin-bottom:2em"><h2 class="text-muted"><i>{{ self.subheading }}</i></h2></span>
+{% endif %}
+{{ self.content | richtext }}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "default.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% block cs_content %}
+
+{# Blog page listing #}
+{% for post in blogs %}
+<div style="padding-top:10px">
+    <div class="row">
+
+        {% if post.title_image %}
+            <div class="col">
+            {% image post.title_image fill-100x100-c75 as thumbnail %}
+                <img src="{{ thumbnail.url }}" alt="{{ thumbnail.alt }}"/></div>
+        {% endif %}
+        {% if post.title_image %}<div class="col-9">{% else %}<div class="col-10">{% endif %}<h2>{{ post.title }}</h2>
+            <span><small>{{ post.first_published_at }}</small></span>
+            <span><i>{{ post.summary | richtext }}</i></span>
+        </div>
+    <div class="col">
+        <a href="{{ post.url }}"><button type="button" class="btn btn-link" style="float:right;min-width:9em;bottom:0px">>> Mehr...</button></a>
+    </div>
+    </div>
+    <hr class="my-4"/>
+</div>
+{% endfor %}
+
+{# Pagination #}
+{% if blogs.paginator.num_pages > 1 %}
+<div class="row col-lg-12" style="margin:auto">
+
+    <div>
+        <ul class="pagination">
+            {% if blogs.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ blogs.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+
+            {% for page_num in blogs.paginator.page_range %}
+            <li class="page-item">
+                <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
+            </li>
+            {% endfor %}
+
+            {% if blogs.has_next %}
+            <li class="page-item">
+                <a href="?page={{ blogs.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+</div>
+{% endif %}
+
+{% endblock %}

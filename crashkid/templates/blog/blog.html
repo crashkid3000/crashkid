@@ -1,0 +1,18 @@
+{% extends "default.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block cs_content %}
+<div style="height:2em"></div>
+<div>
+{% if title_image %}
+{% image self.title_image fill-500x500-c75 as title_image %}
+    <img src="{{ title_image.url }}" alt="{{ title_image.alt }}" class="title-image">
+{% endif %}
+    <h1>{{ self.title }}</h1>
+</div>
+
+{% for block in self.paragraphs %}
+    {% include_block block %}
+{% endfor %}
+
+{% endblock %}
