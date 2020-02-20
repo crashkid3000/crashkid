@@ -96,6 +96,13 @@ WSGI_APPLICATION = 'crashkid.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'crashkid3000$crashbase',
+        'USER': 'crashkid3000',
+        'PASSWORD': '[*]MySku7izer[*]',
+        'HOST': 'crashkid3000.mysql.pythonanywhere-services.com',
+    },
+    'local_postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'meiden_db',
         'USER': 'crashkid3000',
