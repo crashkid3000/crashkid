@@ -186,6 +186,24 @@ class FH4Track(models.Model):
     class Meta:
         verbose_name = "FH4 Event"
 
+    panels = [
+        FieldPanel("track"),
+        FieldPanel("name"),
+        ImageChooserPanel("event_image"),
+        FieldPanel("description"),
+        FieldRowPanel([
+            FieldPanel("laps"),
+            FieldPanel("car_class"),
+        ]),
+        FieldRowPanel([
+            FieldPanel("season"),
+            FieldPanel("time_of_day"),
+            FieldPanel("weather"),
+        ]),
+        FieldPanel("sharecode"),
+
+    ]
+
 
 class FH4Route(models.Model):
     TYPES = [
