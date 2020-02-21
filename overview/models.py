@@ -201,7 +201,6 @@ class FH4Track(models.Model):
             FieldPanel("weather"),
         ]),
         FieldPanel("sharecode"),
-
     ]
 
 
@@ -230,6 +229,15 @@ class FH4Route(models.Model):
 
     def __str__(self):
         return self.name + " (" + self.get_type_display() + ")"
+
+    panels = [
+        ImageChooserPanel("track_image"),
+        FieldPanel("name"),
+        FieldRowPanel([
+            FieldPanel("type"),
+            FieldPanel("length_per_round"),
+        ]),
+    ]
 
     class Meta:
         verbose_name = "FH4 Route"
