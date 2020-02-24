@@ -8,6 +8,8 @@
 <span style="margin-bottom:2em"><h2 class="text-muted"><i>{{ self.subheading }}</i></h2></span>
 {% endif %}
 
+{% block prestuff %}{% endblock %}
+
 {% for block in self.contents %}
     {% include_block block %}
 {% endfor %}
