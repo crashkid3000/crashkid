@@ -15,6 +15,7 @@ def get_GET_options(url=""):
                 GET_options[kvp.split('=')[0]] = kvp.split('=')[1]
     return GET_options
 
+
 def retrieve_github_repo(user, repo):
     """ Asks GitHub about the state of a publicaly-available repository.
     Returns the HTTP status code and the response body as a dict (with nested keys, if necessary).
@@ -30,8 +31,10 @@ def retrieve_github_repo(user, repo):
         retVal['status'] = str(err.code) + " " + err.reason
     return retVal
 
+
 def convert_github_private_status(status):
-    if status:
+    """Converts the 'private' status of a GitHub repo request to an internally used mapping"""
+    if status is True:
         return 'public'
     else:
         return 'privat'
