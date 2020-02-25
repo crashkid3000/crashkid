@@ -30,4 +30,10 @@ def retrieve_github_repo(user, repo):
         retVal['status'] = str(err.code) + " " + err.reason
     return retVal
 
+def convert_github_private_status(status):
+    if status:
+        return 'public'
+    else:
+        return 'privat'
+
 

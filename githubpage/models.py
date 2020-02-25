@@ -78,12 +78,17 @@ class GitHubRepoPage(ExtendableContentPage):
     owner = models.CharField(max_length=100, blank=False, null=True, verbose_name="Owner", help_text='The name of the owner of this repository')
     repo_name = models.CharField(max_length=100, blank=False, null=True, verbose_name='Name', help_text='The name of the repository')
 
-    content_panels = super().content_panels + [
+    content_panels = ExtendableContentPage.content_panels + [
         MultiFieldPanel([
             FieldPanel("owner"),
             FieldPanel("repo_name"),
         ], heading="Basic GitHub Repo information"),
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, args, kwargs)
+        context["curr_page_id"] = self.id
+        return context
 
     class Meta:
         verbose_name = "GitHub Repo Page"
