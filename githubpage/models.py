@@ -75,12 +75,12 @@ class GitHubRepoPage(ExtendableContentPage):
     )
 
     # Basic data about the repository, which we will use to aks the GitHub API if it knows more about said repository
-    owner = models.CharField(max_length=100, blank=False, null=True, verbose_name="Owner", help_text='The name of the owner of this repository')
+    repo_owner = models.CharField(max_length=100, blank=False, null=True, verbose_name="Owner", help_text='The name of the owner of this repository')
     repo_name = models.CharField(max_length=100, blank=False, null=True, verbose_name='Name', help_text='The name of the repository')
 
     content_panels = ExtendableContentPage.content_panels + [
         MultiFieldPanel([
-            FieldPanel("owner"),
+            FieldPanel("repo_owner"),
             FieldPanel("repo_name"),
         ], heading="Basic GitHub Repo information"),
     ]

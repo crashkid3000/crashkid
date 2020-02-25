@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e65bc09-a637-487d-bc95-5b4ae5260bee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crashkid/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/crashkid/settings/base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crashkid/templates/githubpage/githubpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/crashkid/templates/githubpage/githubpage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/githubpage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/githubpage/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/githubpage/templatetags/github_finder.py" beforeDir="false" afterPath="$PROJECT_DIR$/githubpage/templatetags/github_finder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
