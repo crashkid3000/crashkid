@@ -2,7 +2,7 @@
 {% load github_finder %}
 {% block prestuff %}
 
-{% reload_github_repo {{self.repo_owner}} {{self.repo_name}} %}
+{% reload_github_repo self.repo_owner self.repo_name %}
 
 {% if self.repo %}
 <div class="card mb-3">
