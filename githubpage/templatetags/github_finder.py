@@ -9,15 +9,16 @@ register = template.Library()
 def reload_github_repo(context, user="", repo=""):
     """Refreshes/created data for a GitHubRepoPage using the GitHub API."""
 
-    fetch_new_data = False  # if we ned to fetch new data
+    fetch_new_data = False  # if we need to fetch new data
 
     _repos = GitHubRepo.objects.filter(owner_name__iexact=user, name__iexact=repo)
     if _repos.count() > 0:
-        # TODO: set fetch_new_data to true if GitHubRepo.object_last_updated was more than 24h ago
         old_repo = _repos[0]
+        if (old_repo.object_last_updated - datetime.now()).days >= 1:  # if at least 1 day passed since last update
+            fetch_new_data = True  # fetch new data, because the one we have is outdated
         print('    repo last updated on: ' + str(old_repo.object_last_updated))
-    else:
-        fetch_new_data = True
+    else:  # if there is no repo matching the given owner and repo name
+        fetch_new_data = True  # ...we definitely ned to fetch teh data from the GitHub API
         old_repo = None
 
     if fetch_new_data:
@@ -65,5 +66,4 @@ def reload_github_repo(context, user="", repo=""):
             curr_page = GitHubRepoPage.objects.filter(id=context["curr_page_id"])[0]
             curr_page.repo = new_github_data
             curr_page.save()
-
-    return ''
+    return ''  # return an empty string, because we cannot return nothing
