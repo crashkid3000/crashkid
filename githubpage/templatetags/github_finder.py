@@ -66,4 +66,4 @@ def reload_github_repo(context, user="", repo=""):
             curr_page.repo = new_github_data
             curr_page.save()
 
-    return context
+    return ''
