@@ -14,7 +14,7 @@ def reload_github_repo(context, user="", repo=""):
     _repos = GitHubRepo.objects.filter(owner_name__iexact=user, name__iexact=repo)
     if _repos.count() > 0:
         old_repo = _repos[0]
-        if (old_repo.object_last_updated - datetime.utcnow(timezone.utc)).days >= 1:  # if at least 1 day passed since last update
+        if (old_repo.object_last_updated - datetime.now(timezone.utc)).days >= 1:  # if at least 1 day passed since last update
             fetch_new_data = True  # fetch new data, because the one we have is outdated
         print('    repo last updated on: ' + str(old_repo.object_last_updated))
     else:  # if there is no repo matching the given owner and repo name
