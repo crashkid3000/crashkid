@@ -12,7 +12,7 @@ def reload_github_repo(context, user="", repo=""):
     fetch_new_data = False  # if we ned to fetch new data
 
     _repos = GitHubRepo.objects.filter(owner_name__iexact=user, name__iexact=repo)
-    if _repos.count > 0:
+    if _repos.count() > 0:
         # TODO: set fetch_new_data to true if GitHubRepo.object_last_updated was more than 24h ago
         old_repo = _repos[0]
         print('    repo last updated on: ' + str(old_repo.object_last_updated))

@@ -126,6 +126,8 @@ dmypy.json
 
 # PyCharm stuff
 .idea/
+.idea
+.idea/*
 
 # Wagtail local settings
 crashkid/settings/local.py
