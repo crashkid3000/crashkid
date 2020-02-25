@@ -35,8 +35,8 @@ def retrieve_github_repo(user, repo):
 def convert_github_private_status(status):
     """Converts the 'private' status of a GitHub repo request to an internally used mapping"""
     if status is True:
-        return 'public'
-    else:
         return 'privat'
+    else:
+        return 'public'
 
 
