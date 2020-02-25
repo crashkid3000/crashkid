@@ -7,17 +7,19 @@
 {% if self.repo %}
 <div class="card mb-3">
   <span>
-  <span style="border-width:1px;border-style:solid">{{ self.repo.get_access_status_display }}</span><h3 class="card-header">{{ self.repo.name }}</h3>
+  <h3 class="card-header">{{ self.repo.get_access_status_display }} | {{ self.repo.name }}</h3>
   </span>
   <div class="card-body">
     <h5 class="card-title">Besitzer: {{ self.repo.owner_name }}</h5>
-      <h6 class="card-subtitle text-muted">Erstellt: {{ self.repo.created_on }}</h6>
-      <h6 class="card-subtitle text-muted">Letze Änderung: {{ self.repo.last_updated }}</h6>
+      <h6 class="card-subtitle text-muted"><p>Erstellt am: {{ self.repo.created_on }}</p></h6>
+      <h6 class="card-subtitle text-muted"><p>Letze Änderung: {{ self.repo.last_updated }}</p></h6>
   </div>
   <ul class="list-group list-group-flush">
+    <small>
       <li class="list-group-item"><p class="card-text">{{ self.repo.description }}</p></li>
       <li class="list-group-item"><p class="card-text">Sprache: {{ self.repo.language }}</p>
       <p class="card-text">Größe: {{ self.repo.size }}kiB</p></li>
+    </small>
   </ul>
   <div class="card-body">
       <span>

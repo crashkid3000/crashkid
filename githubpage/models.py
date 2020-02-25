@@ -9,8 +9,8 @@ from wagtail.core.models import Page
 class GitHubRepo(models.Model):
     """A GitHub repository"""
     PRIVATE_STATUS = [
-        ('privat', '&#x1F512;'),  # "locked lock" emoji
-        ('public', '&#x1F513;'),  # "unlocked lock" emoji
+        ('privat', '🔒'),  # "locked lock" emoji
+        ('public', '🔓'),  # "unlocked lock" emoji
     ]
 
     name = models.CharField(max_length=100, blank=False, null=True, verbose_name='Name', help_text='The name of the repository')
