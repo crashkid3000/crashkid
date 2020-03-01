@@ -142,7 +142,7 @@ class FH4Track(models.Model):
 
     WEATHERS = [
         ('S ', 'Heiter'),  # Sunny
-        ('Sr', 'HEiter (nass)'),  # Sunny (wet)
+        ('Sr', 'Heiter (nass)'),  # Sunny (wet)
         ('C ', 'Wolkig'),  # Cloudy
         ('Cr', 'Wolkig (nass)'),  # Cloudy (wet)
         ('O ', 'Bewölkt'),  # Overcast
@@ -211,11 +211,11 @@ class FH4Track(models.Model):
 class FH4Route(models.Model):
     TYPES = [
         ('r', 'Sprint'),
-        ('R', 'Circuit'),
-        ('d', 'Rally'),
+        ('R', 'Rundkurs'),
+        ('d', 'Rallye'),
         ('D', 'Dirt Track'),
-        ('c', 'CC Sprint'),
-        ('C', 'CC Circuit')
+        ('c', 'Offroad-Sprint'),
+        ('C', 'Offroadkurs')
     ]
 
     track_image = models.ForeignKey(
@@ -250,15 +250,15 @@ class FH4Route(models.Model):
 class FH4Championship(models.Model):
     TYPES = [
         ('r', 'Sprint'),
-        ('R', 'Circuit'),
-        ('d', 'Rally'),
+        ('R', 'Rundkurs'),
+        ('d', 'Rallye'),
         ('D', 'Dirt Track'),
-        ('c', 'CC Sprint'),
-        ('C', 'CC Circuit'),
+        ('c', 'Offroad-Sprint'),
+        ('C', 'Offroadkurs'),
         ('A', 'Asphalt'),
-        ('E', 'Mixed Surface'),
-        ('€', 'Cross Country'),
-        ('S', 'Street Scene'),
+        ('E', 'Grip'),
+        ('€', 'Offroad'),
+        ('S', 'Straßenszene'),
     ]
 
     name = models.CharField(max_length=50, blank=False, null=False, help_text="The name for this championship", verbose_name="Championship name")
@@ -301,18 +301,18 @@ class FH4Championship(models.Model):
 class FH4Tune(models.Model):
     TUNE_TYPE = [
         ('C', 'Asphalt'),
-        ('R', 'Rally'),
+        ('R', 'Rallye'),
         ('O', 'Offroad'),
         ('d', 'Drag'),
         ('D', 'Drift'),
     ]
 
     TUNE_CHARACTERISTIC = [
-        ('S', 'Speed'),
-        ('A', 'Acceleration'),
-        ('a', 'Aerodynamic Grip'),
+        ('S', 'Geschwindigkeit'),
+        ('A', 'Beschleunigung'),
+        ('a', 'Aerodynamischer Grip'),
         ('G', 'Grip'),
-        ('B', 'Balanced'),
+        ('B', 'Ausgeglichen'),
     ]
 
     DRIVETRAIN = [
@@ -325,11 +325,11 @@ class FH4Tune(models.Model):
     ]
 
     INTAKE = [
-        ('/', 'Naturally Aspirated'),
-        ('S', 'Supercharger'),
-        ('C', 'Centrifugal Supercharger'),
-        ('t', 'Single Turbo'),
-        ('T', 'Two Turbos'),
+        ('/', 'Saugmotor'),
+        ('S', 'Kompressor'),
+        ('C', 'Zentrifugal-Kompressor'),
+        ('t', 'Einzelner Turbo'),
+        ('T', 'Zwei Turbos'),
     ]
 
     name = models.CharField(max_length=50, blank=False, null=False, default="", verbose_name="Tune name", help_text="The name of this setup")
