@@ -18,7 +18,7 @@ class FH4OverviewPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, args, kwargs)
-        all_events = FH4Track.objects.all().order_by("-id")
+        all_events = FH4Track.objects.all().filter(show_in_all_tracks=True).order_by("-id")
         paginator = Paginator(all_events, 6)  # 6 Events per page
         page_no = request.GET.get("page")
         try:
@@ -108,49 +108,51 @@ class FH4TuneOverviewPage(Page):
         verbose_name = "FH4 All Tunes Overview"
 
 
-@register_snippet
 class FH4Track(models.Model):
 
     CAR_CLASSES = [
-        ('X', 'X class'),
-        ('2', 'S2 class'),
-        ('1', 'S1 class'),
-        ('A', 'A class'),
-        ('B', 'B class'),
-        ('C', 'C class'),
-        ('D', 'D class'),
-        ('-', 'Not restricted'),
+        ('X', 'X Klasse'),  # X class
+        ('2', 'S2 Klasse'),  # S2 class
+        ('1', 'S1 Klasse'),  # S1 class
+        ('A', 'A Klasse'),  # A class
+        ('B', 'B Klasse'),  # B class
+        ('C', 'C Klasse'),  # C class
+        ('D', 'D Klasse'),  # D class
+        ('-', 'Unbeschränkt'),  # unrestricted
     ]
 
     SEASONS = [
         ("W", "Winter"),
-        ("F", "Spring"),  # F = Frühling (ger) = Spring
-        ("S", "Summer"),
-        ("H", "Autumn")  # H = Herbst (ger) = Autumn
+        ("F", "Frühling"),  # F = Frühling (ger) = Spring
+        ("S", "Sommer"),  # Summer
+        ("H", "Herbst")  # H = Herbst (ger) = Autumn
     ]
 
     TIME_OF_DAYS = [
-        ('Da', 'Dawn'),
-        ('Su', 'Sunrise'),
-        ('Mo', 'Morning'),
-        ('No', 'Noon'),
-        ('Af', 'Afternoon'),
-        ('Se', 'Sunset'),
-        ('Du', 'Dusk'),
-        ('Ni', 'Night'),
-        ('??', 'Current'),
+        ('Da', 'Morgengrauen'),  # Dawn
+        ('Su', 'Sonnenaufgang'),  # Sunrise
+        ('Mo', 'Morgen'),  # Morning
+        ('No', 'Mittag'),  # Noon
+        ('Af', 'Nachmittag'),  # Afternoon
+        ('Se', 'Sonnenuntergang'),  # Sunset
+        ('Du', 'Abend'),  # Dusk
+        ('Ni', 'Nacht'),  # Night
+        ('??', 'Aktuell'),  # Current
     ]
 
     WEATHERS = [
-        ('S ', 'Sunny'),
-        ('Sr', 'Sunny (wet)'),
-        ('C ', 'Cloudy'),
-        ('Cr', 'Cloudy (wet)'),
-        ('O ', 'Overcast'),
-        ('Lr', 'Light rain/snow'),
-        ('Hr', 'Heavy rain/snow'),
-        ('FB', 'Foggy/Blizzard'),
-        ('??', 'Current'),
+        ('S ', 'Heiter'),  # Sunny
+        ('Sr', 'HEiter (nass)'),  # Sunny (wet)
+        ('C ', 'Wolkig'),  # Cloudy
+        ('Cr', 'Wolkig (nass)'),  # Cloudy (wet)
+        ('O ', 'Bewölkt'),  # Overcast
+        ('Lr', 'Leichter Regen'),  # light rain
+        ('Ls', 'Leichter Schneefall'),  # light snow
+        ('Hr', 'Starker Regen'),  # heavy rain
+        ('Hs', 'Starker Schneefall'),  # heavy snow
+        ('FB', 'Nebel'),  # fog
+        ('Bl', 'Blizzard'),  # Blizzard
+        ('??', 'Aktuell'),  # current
     ]
     track = models.ForeignKey(
         'FH4Route',
@@ -179,6 +181,7 @@ class FH4Track(models.Model):
     time_of_day = models.CharField(max_length=2, choices=TIME_OF_DAYS, default='No', blank=False, null=False, help_text="When this race takes place", verbose_name="Time of day")
     weather = models.CharField(max_length=30, blank=False, null=False, choices=WEATHERS, default='S ', help_text="What kind of weather will be present at the event")
     sharecode = models.IntegerField(blank=False, null=False, default=0, help_text="The share code for that event", verbose_name="Share code")
+    show_in_all_tracks = models.BooleanField(blank=False, null=False, default=True, help_text='Show track in "FH4 Overview Page"')
 
     def __str__(self):
         return self.name
@@ -194,6 +197,7 @@ class FH4Track(models.Model):
         FieldRowPanel([
             FieldPanel("laps"),
             FieldPanel("car_class"),
+            FieldPanel("show_in_all_tracks"),
         ]),
         FieldRowPanel([
             FieldPanel("season"),
