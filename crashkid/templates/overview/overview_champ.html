@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags fh4tracks %}
 {% for champ in champs %}
 
     {% image champ.championship_image height-480 as champ_image %}
@@ -17,7 +17,7 @@
               <div class="row">
                   {% for event in champ.events.all %}
                         <div class="col" style="border-left:1px solid #AAAAA;margin:auto">
-                            <a href="/fh4_events?id={{ event.id - 1}}">
+                            <a href="/fh4_events?id={% subtract event.id 1 %}">
                             {% if event.event_image %}
                                 {% image event.event_image fill-200x112 as event_thumbnail %}
                                 <img src="{{ event_thumbnail.url }}" alt="{{ event_thumbnail.alt }}"/>
