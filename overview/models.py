@@ -256,7 +256,8 @@ class FH4Championship(models.Model):
         ('c', 'Offroad-Sprint'),
         ('C', 'Offroadkurs'),
         ('A', 'Asphalt'),
-        ('E', 'Grip'),
+        ('E', 'Alle Straßenbeläge'),
+        ('G', 'Schotter'),
         ('€', 'Offroad'),
         ('S', 'Straßenszene'),
     ]
