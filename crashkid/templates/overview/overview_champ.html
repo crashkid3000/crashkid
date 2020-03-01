@@ -5,10 +5,10 @@
       <div class="card mb-3 center" style="display:inline-flex;min-width:51%">
           <h3 class="card-header">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}<span style="text-center">{{ champ.name }}</span>{% endif %}</h3>
       <div class="card-body">
-          <h5 class="card-title">{{ champ.get_type_display }} | Prize: {{ champ.prize_money }} Cr.</h5>
+          <h5 class="card-title">{{ champ.get_type_display }} | Preisgeld: {{ champ.prize_money }} Cr.</h5>
           <p>{{ champ.description }}</p>
           {% if champ.further_prize %}
-          <p>Additional prize: {{ champ.further_prize }}</p>
+          <p>Weiterer Preis: {{ champ.further_prize }}</p>
           {% endif %}
       </div>
       <hr class="mr-4 center">

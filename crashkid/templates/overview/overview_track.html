@@ -7,19 +7,19 @@
       <h3 class="card-header">{% if event_image %}<img src="{{ event_image.url }}" style="max-height:4em;object-fit:contain" class="center">{% else %}{{ event.name }}{% endif %}</h3>
       <div class="card-body">
           <h5 class="card-title">{{ event.track.get_type_display }}</h5>
-          <h6 class="card-subtitle text-muted">{{ event.track.length_per_round}}kms {% if event.track.type == 'R' or event.track.type == 'C' or event.track.type == 'D'%}/ {{ event.laps }} lap{% if event.laps != 1 %}s{% endif %} {% endif %}</h6>
+          <h6 class="card-subtitle text-muted">{{ event.track.length_per_round}}km {% if event.track.type == 'R' or event.track.type == 'C' or event.track.type == 'D'%}/ {{ event.laps }} Runde{% if event.laps != 1 %}n{% endif %} {% endif %}</h6>
       </div>
       <img class="center" style="max-height:20em;object-fit:contain" src="{{ track_image.url }}" alt="{{ track_image.alt }}">
       <ul class="list-group list-group-flush">
           <li class="list-group-item">{{ event.description }}</li>
           <li class="list-group-item">
-              Event Details:
+              Eventdetails:
               <table class="table table-hover">
                   <thead></thead>
                   <tbody>
                     <tr>
                         <th scope="row">
-                            Cars:
+                            Autos:
                         </th>
                         <td>
                             {{ event.car_class }}
@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <th scope="row">
-                            Car Power:
+                            Klasse:
                         </th>
                         <td>
                             {{ event.get_car_power_display }}
@@ -35,7 +35,7 @@
                      </tr>
                   <tr>
                         <th scope="row">
-                            Season:
+                            Jahreszeit:
                         </th>
                         <td>
                             {{ event.get_season_display }}
@@ -43,7 +43,7 @@
                     </tr>
                   <tr>
                         <th scope="row">
-                            Daytime:
+                            Tageszeit:
                         </th>
                         <td>
                             {{ event.get_time_of_day_display }}
@@ -51,7 +51,7 @@
                     </tr>
                   <tr>
                         <th scope="row">
-                            Weather:
+                            Wetter:
                         </th>
                         <td>
                             {{ event.get_weather_display }}
@@ -59,7 +59,7 @@
                     </tr>
                   <tr>
                         <th scope="row">
-                            Share code:
+                            Sharecode:
                         </th>
                         <td>
                             <b>{% if event.sharecode != 0 %}{{ event.sharecode }}{% else %}Not Available{% endif %}</b>
