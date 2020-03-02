@@ -65,4 +65,9 @@ def reload_github_repo(context, user="", repo=""):
             curr_page = GitHubRepoPage.objects.filter(id=context["curr_page_id"])[0]
             curr_page.repo = new_github_data
             curr_page.save()
+            context['update_successful'] = True  # tell site context that we successfully updated the repo
+        else:  # if we didn't recieve a 200 OK response
+            context['update_successful'] = False  # tell site context that the update was not successful
+    else:
+        context['update_successful'] = True  # tell site that no update was needed, which is a success in itself
     return ''  # return an empty string, because we cannot return nothing
