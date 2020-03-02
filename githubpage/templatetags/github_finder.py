@@ -65,4 +65,4 @@ def reload_github_repo(context, user="", repo=""):
             curr_page = GitHubRepoPage.objects.filter(id=context["curr_page_id"])[0]
             curr_page.repo = new_github_data
             curr_page.save()
-    return str(fetch_new_data)  # return an empty string, because we cannot return nothing
+    return ''  # return an empty string, because we cannot return nothing
