@@ -134,3 +134,4 @@ crashkid/settings/local.py
 
 # a python file used for quick testing for myself
 quicktest.py
+*.xml
