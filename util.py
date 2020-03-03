@@ -63,6 +63,9 @@ def format_number(num, lang=settings.LANGUAGE_CODE):
     retVal = nustring[::-1]
     if len(num_parts) > 1:
         retVal += decimal + num_parts[1]
+    print("######################################")
+    print("    " + str(num) + " as " + str(type(num)) + " in " + lang + " -> " + retVal)
+    print("######################################")
     return retVal
 
 
