@@ -48,7 +48,7 @@ def format_number(num, lang=settings.LANGUAGE_CODE):
     nustring = ""  # new string
     code = lang.split("-")[0]  # the language code we will use to search in teh number config INI file
     cfg = configparser.ConfigParser()
-    cfg.read('numseps.ini')
+    cfg.read('./numseps.ini')
     thousands = cfg[code]['thousands'].replace('"', '')
     decimal = cfg[code]['decimal'].replace('"', '')
     num_parts = str(num).split('.')  # split at the '.' character, as that's the decimal separator hard-coded into python for float
