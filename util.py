@@ -1,7 +1,9 @@
 import urllib.request as request
 from http.client import HTTPResponse
 import json
+import configparser
 from urllib.error import HTTPError
+import crashkid.settings.base as settings
 
 
 def get_GET_options(url=""):
@@ -38,5 +40,29 @@ def convert_github_private_status(status):
         return 'privat'
     else:
         return 'public'
+
+
+def format_number(num, lang=settings.LANGUAGE_CODE):
+    """Converts a number to a sting, including decimal separators. Accepted language codes: de-*, en-*, fr-* (*=wildcard)"""
+    zero_counter = 0
+    nustring = ""  # new string
+    code = lang.split("-")[0]  # the language code we will use to search in teh number config INI file
+    cfg = configparser.ConfigParser()
+    cfg.read('numseps.ini')
+    thousands = cfg[code]['thousands'].replace('"', '')
+    decimal = cfg[code]['decimal'].replace('"', '')
+    num_parts = str(num).split('.')  # split at the '.' character, as that's the decimal separator hard-coded into python for float
+    reverse_first_part = num_parts[0][::-1]
+    for i in range(len(reverse_first_part)):
+        nustring += reverse_first_part[i]
+        if reverse_first_part[i] == '0':
+            zero_counter += 1
+        if zero_counter == 3:
+            zero_counter = 0
+            nustring += thousands
+    retVal = nustring[::-1]
+    if len(num_parts) > 1:
+        retVal += decimal + num_parts[1]
+    return retVal
 
 

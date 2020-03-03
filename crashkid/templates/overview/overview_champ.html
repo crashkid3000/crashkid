@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags fh4tracks %}
+{% load wagtailcore_tags wagtailimages_tags crashk_utils %}
 {% for champ in champs %}
 
     {% image champ.championship_image height-480 as champ_image %}
@@ -8,7 +8,7 @@
           <h5 class="card-title">{{ champ.get_type_display }} | Preisgeld: {{ champ.prize_money }} Cr.</h5>
           <p>{{ champ.description }}</p>
           {% if champ.further_prize %}
-          <p>Weiterer Preis: {{ champ.further_prize }}</p>
+          <p>Weiterer Preis: {% format_number champ.further_prize %}</p>
           {% endif %}
       </div>
       <hr class="mr-4 center text-center">

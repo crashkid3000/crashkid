@@ -72,8 +72,3 @@ def fh4_all_tunes(context, url=''):
         retVal['tunes'] = context["tunes"]
 
     return retVal
-
-
-@register.simple_tag(takes_context=True)
-def subtract(context, int1=0, int2=0):
-    return int1 - int2
