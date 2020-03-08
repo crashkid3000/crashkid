@@ -1,8 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags crashk_utils %}
 {% for champ in champs %}
-
+    <div class="row">
+    <div class="col">
     {% image champ.championship_image height-480 as champ_image %}
-      <div class="card mb-3 center" style="display:inline-flex;min-width:51%">
+      <div class="card mb-3 justify-content-center" style="display:inline-flex">
           <h3 class="card-header">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}<span style="text-center">{{ champ.name }}</span>{% endif %}</h3>
       <div class="card-body">
           <h5 class="card-title">{{ champ.get_type_display }} | Preisgeld: {% format_number champ.prize_money %} Cr.</h5>
@@ -30,7 +31,9 @@
               </div>
           </li>
 
-      </ul>
+          </ul>
+        </div>
+    </div>
     </div>
 
 {% endfor %}
