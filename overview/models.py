@@ -202,7 +202,10 @@ class FH4Track(models.Model):
         FieldRowPanel([
             FieldPanel("season"),
             FieldPanel("time_of_day"),
+        ]),
+        FieldRowPanel([
             FieldPanel("weather"),
+            FieldPanel("car_power"),
         ]),
         FieldPanel("sharecode"),
     ]
