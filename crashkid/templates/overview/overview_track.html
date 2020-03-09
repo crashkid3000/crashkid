@@ -3,7 +3,7 @@
     {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
     {% image event.track.track_image width-600 as track_image %}
     {% image event.event_image width-600 as event_image %}
-      <div class="card mb-3 col-sm" style="display:inline-flex;">
+      <div class="card mb-3 pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md-6" style="display:inline-flex;"> {#cycle: forces spacing between two cards #}
       <h3 class="card-header">{% if event_image %}<img src="{{ event_image.url }}" style="max-height:4em;object-fit:contain" class="center">{% else %}{{ event.name }}{% endif %}</h3>
       <div class="card-body">
           <h5 class="card-title">{{ event.track.get_type_display }}</h5>
@@ -70,7 +70,11 @@
           </li>
       </ul>
     </div>
+    {% if forloop.last %}
+    </div> {# Definitely need to close on the last iteration #}
+    {% else %}
     {% cycle '' '</div>' %} {# Closing </div> every other for-loop iteration #}
+    {% endif %}
 
 {% endfor %}
 
