@@ -20,6 +20,7 @@ class TitleAndParagraphWithImage(blocks.StructBlock):
     title = blocks.CharBlock(max_length=150, required=False, help_text="A title for the below text")
     text = blocks.RichTextBlock(required=True, help_text="The text for this paragraph")
     image = ImageChooserBlock(required=True, help_text="The image below the text that scrolls by")
+    caption = blocks.CharBlock(max_length=500, required=False, help_text="A caption to describe the image")
 
     class Meta:
         template = "blocks/title_and_paragraph_with_image.html"
