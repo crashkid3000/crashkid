@@ -8,7 +8,7 @@
 <span style="margin-bottom:2em"><h2 class="text-muted"><i>{{ self.subheading }}</i></h2></span>
 {% endif %}
 
-{% block prestuff %}{% endblock %}
+{% block prestuff %}{% endblock %} {# Space for some other stuff can be added here, making this an excellent base page for other pages to expand upon #}
 
 {% for block in self.contents %}
     {% include_block block %}
