@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags crashk_utils %}
 {% for champ in champs %}
     <div class="row">
-    <div class="col">
+    <div class="col-12">
     {% image champ.championship_image height-480 as champ_image %}
       <div class="card mb-3 justify-content-center" style="display:inline-flex">
           <h3 class="card-header">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}<span style="text-center">{{ champ.name }}</span>{% endif %}</h3>
