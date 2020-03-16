@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -135,3 +136,6 @@ crashkid/settings/local.py
 # a python file used for quick testing for myself
 quicktest.py
 *.xml
+
+# this is where i put my secret keys in
+*keys.ini

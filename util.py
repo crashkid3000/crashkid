@@ -4,6 +4,7 @@ import json
 import configparser
 from urllib.error import HTTPError
 import crashkid.settings.base as settings
+import crashkid.settings.local as local
 
 
 def get_GET_options(url=""):
@@ -31,6 +32,40 @@ def retrieve_github_repo(user, repo):
         retVal['status'] = resp.getheader('status')
     except HTTPError as err:
         retVal['status'] = str(err.code) + " " + err.reason
+    return retVal
+
+
+def retrieve_xboxlive_stats_crashkid(gameid):
+    """Asks an unofficial Xbox API about the stats of crashkid3000s achievements/stats for a specified Xbox Live game"""
+    # because the official API sucks
+    cfg = configparser.ConfigParser()
+    cfg.read(local.LOCAL_API_KEYS_FILE)
+    if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
+        auth_key = cfg['xbapi']['auth_key']
+        xuid = cfg['xbapi']['xuid']
+        req = request.Request('https://xboxapi.com/v2/' + str(xuid) + '/game-stats/' + str(gameid))
+        req.add_header('X-Auth', auth_key)
+        try:
+            resp = request.urlopen(req)
+            retVal = json.loads(resp.read())
+            retVal['req_success'] = True
+            return retVal
+        except HTTPError as err:
+            print("HTTP Error! " + str(err))
+            print("---> returning error dict")
+            return {'req_success': False}
+    else:
+        print("Could not read API keys file, or it is empty! Returning and empty dict...")
+        return {}
+
+
+def improve_dict_access_for_fh4_stats(stats):
+    """Improves the atrocious handling of the response comiing from crashkid's Forza Horizon 4 player stats"""
+    retVal = {}
+    retVal[stats['statlistscollection'][0]['stats'][0]['name']] = stats['statlistscollection'][0]['stats'][0]['value']
+    for i in range(len(stats['groups'][0]['statlistscollection'][0]['stats'])):
+        if 'value' in stats['groups'][0]['statlistscollection'][0]['stats'][i - 1].keys():
+            retVal[stats['groups'][0]['statlistscollection'][0]['stats'][i - 1]['name']] = stats['groups'][0]['statlistscollection'][0]['stats'][i - 1]['value']
     return retVal
 
 
