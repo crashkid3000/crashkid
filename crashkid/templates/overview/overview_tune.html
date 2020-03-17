@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% for tune in tunes %}
   {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
-    {% image tune.preview_image min-1x1 as tune_thumb %}
+    {% image tune.preview_image scale-50 as tune_thumb %}
     {% if tune.tune_type == 'C' %}
     <div class="card mb-3 border-info pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% elif tune.tune_type == 'R' %}
@@ -29,7 +29,7 @@
             <img class="center" style="object-fit:contain" src="{{ tune_thumb.url }}" alt="{{ tune_thumb.alt }}"/>
         {% endif %}
       <div class="card-body">
-          {% if tune.livery_name %}<small class="text-muted">Lackierung: {{ tune.livery_name }}{% if tune.livery_sharecode %}| {{ tune.livery_sharecode }}{% endif %}</small>{% endif %}
+          {% if tune.livery_name %}<small class="text-muted">Lackierung: {{ tune.livery_name }}{% if tune.livery_sharecode %} | {{ tune.livery_sharecode }}{% endif %}</small>{% endif %}
           <ul class="nav nav-tabs">
               <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#simple{{forloop.counter}}">Einfache Stats</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#detail{{forloop.counter}}">Details</a></li>
