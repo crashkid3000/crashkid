@@ -351,6 +351,8 @@ class FH4Tune(models.Model):
     )
     car = models.CharField(max_length=150, blank=False, null=True, verbose_name="Car name", help_text="The car this tune was made for")
     pi = models.IntegerField(blank=False, null=False, verbose_name="Performance Index", help_text="The performance index of this tune")
+    tune_sharecode = models.IntegerField(blank=True, null=True, verbose_name="Tune Sharecode", help_text="The Sharecode for that tune")
+    livery_sharecode = models.IntegerField(blank=True, null=True, verbose_name="Livery Sharecode", help_text="The Sharecode for that livery")
 
     speed = models.FloatField(blank=False, null=True, verbose_name="Max speed (kph)", help_text="The maximum speed this car can reach")
     accel100 = models.FloatField(blank=False, null=True, verbose_name="0-100kmh Acceleration (s)", help_text="The time it takes for this car to accelerate from 0 to 100")
@@ -383,6 +385,10 @@ class FH4Tune(models.Model):
                 FieldPanel("tune_characteristic"),
             ]),
             FieldPanel("livery_name"),
+            FieldRowPanel([
+                FieldPanel("tune_sharecode"),
+                FieldPanel("livery_sharecode"),
+            ]),
             ImageChooserPanel("preview_image"),
         ], heading="General Tune Settings"),
         MultiFieldPanel([
