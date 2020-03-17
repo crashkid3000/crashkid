@@ -9,7 +9,7 @@
           <h5 class="card-title">{{ event.track.get_type_display }}</h5>
           <h6 class="card-subtitle text-muted">{{ event.track.length_per_round}}km {% if event.track.type == 'R' or event.track.type == 'C' or event.track.type == 'D'%}/ {{ event.laps }} Runde{% if event.laps != 1 %}n{% endif %} {% endif %}</h6>
       </div>
-      <img class="center img-fluid" style="max-height:20em;object-fit:contain" src="{{ track_image.url }}" alt="{{ track_image.alt }}">
+      <img class="center img-fluid" style="" src="{{ track_image.url }}" alt="{{ track_image.alt }}">
       <ul class="list-group list-group-flush">
           <li class="list-group-item">{{ event.description }}</li>
           <li class="list-group-item">
