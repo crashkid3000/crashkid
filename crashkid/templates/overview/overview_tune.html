@@ -1,15 +1,15 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% for tune in tunes %}
-
-    {% image tune.preview_image height-400 as tune_thumb %}
+  {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
+    {% image tune.preview_image as tune_thumb %}
     {% if tune.tune_type == 'C' %}
-    <div class="card mb-3 border-info" style="display:inline-flex;max-width:45%">
+    <div class="card mb-3 border-info pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% elif tune.tune_type == 'R' %}
-    <div class="card mb-3 border-warning" style="display:inline-flex;max-width:45%">
+    <div class="card mb-3 border-warning pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% elif tune.tune_type == 'O' %}
-    <div class="card mb-3 border-success" style="display:inline-flex;max-width:45%">
+    <div class="card mb-3 border-success pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% else %}
-    <div class="card mb-3" style="display:inline-flex;max-width:45%">
+    <div class="card mb-3 pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% endif %}
       <h3 class="card-header">{{ tune.name }}</h3>
       <div class="card-body">
@@ -22,14 +22,14 @@
               {% elif tune.pi > 700 %}A
               {% elif tune.pi > 600 %}B
               {% elif tune.pi > 500 %}C
-              {% else %}D{% endif %} {{ tune.pi }} | {{ tune.get_drivetrain_display }}
+              {% else %}D{% endif %} {{ tune.pi }} | {{ tune.get_drivetrain_display }} | {{ tune.tune_sharecode }}
           </div>
       </div>
         {% if tune_thumb %}
             <img class="center" style="object-fit:contain" src="{{ tune_thumb.url }}" alt="{{ tune_thumb.alt }}"/>
         {% endif %}
       <div class="card-body">
-          {% if tune.livery_name %}<small class="text-muted">Lackierung: {{ tune.livery_name }}</small>{% endif %}
+          {% if tune.livery_name %}<small class="text-muted">Lackierung: {{ tune.livery_name }}{% if tune.livery_sharecode %}| {{ tune.livery_sharecode }}{% endif %}</small>{% endif %}
           <ul class="nav nav-tabs">
               <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#simple{{forloop.counter}}">Einfache Stats</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#detail{{forloop.counter}}">Details</a></li>
@@ -133,6 +133,11 @@
       </div>
 
     </div>
+ {% if forloop.last %}
+ </div> {# Definitely need to close on the last iteration #}
+ {% else %}
+ {% cycle '' '</div>' %} {# Closing </div> every other for-loop iteration #}
+ {% endif %}
 
 {% endfor %}
 
