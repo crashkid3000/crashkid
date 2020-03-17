@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyc
+
 
 # C extensions
 *.so
@@ -139,3 +139,5 @@ quicktest.py
 
 # this is where i put my secret keys in
 *keys.ini
+*.pyc
+*.pyc
