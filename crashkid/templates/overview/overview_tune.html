@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% for tune in tunes %}
   {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
-    {% image tune.preview_image max-192-1080 as tune_thumb %}
+    {% image tune.preview_image max-1920x1080 as tune_thumb %}
     {% if tune.tune_type == 'C' %}
     <div class="card mb-3 border-info pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
     {% elif tune.tune_type == 'R' %}
