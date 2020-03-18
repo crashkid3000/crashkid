@@ -2,15 +2,8 @@
 {% for tune in tunes %}
   {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
     {% image tune.preview_image scale-50 as tune_thumb %}
-    {% if tune.tune_type == 'C' %}
-    <div class="card mb-3 border-info pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
-    {% elif tune.tune_type == 'R' %}
-    <div class="card mb-3 border-warning pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
-    {% elif tune.tune_type == 'O' %}
-    <div class="card mb-3 border-success pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
-    {% else %}
-    <div class="card mb-3 pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
-    {% endif %}
+
+    <div class="card mb-3 {% if tune.tune_type == 'C' %}border-info{% elif tune.tune_type == 'R' %}border-warning{% elif tune.tune_type == 'O' %}border-success{%endif%} pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex">
       <h3 class="card-header">{{ tune.name }}</h3>
       <div class="card-body">
           <h5>{{ tune.car }}</h5>
