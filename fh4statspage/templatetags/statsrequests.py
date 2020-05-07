@@ -13,6 +13,7 @@ def render_forza_stats(context):
         'request': context,
     }
     curr_page = FHStatsPage.objects.filter(id=context["curr_page_id"])
+    curr_page = curr_page[0]
     if (datetime.now(timezone.utc) - curr_page.apistats.object_last_updated).days >= 1:  # if at least 1 day passed since last update
         if curr_page.game == "FH4":
             stats = util.retrieve_xboxlive_stats_crashkid(1985701699)  # 1985701699: gameid of Forza Horizon 4
