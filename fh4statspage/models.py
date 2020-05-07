@@ -30,18 +30,18 @@ class FHStatsPage(Page):
     designs_released = models.IntegerField(blank=True, null=False, verbose_name="Designs released", help_text="How many designs were released.")
     events_released = models.IntegerField(blank=True, null=False, verbose_name="Events released", help_text="How many events were published.")
 
-    tunings_downloaded = models.IntegerField(blank=True, null=False, verbose_name="Tunings released",
+    tunings_downloaded = models.IntegerField(blank=True, null=False, verbose_name="Tunings downloaded",
                                            help_text="How many tunings were downloaded by others.")
-    designs_downloaded = models.IntegerField(blank=True, null=False, verbose_name="Designs released",
+    designs_downloaded = models.IntegerField(blank=True, null=False, verbose_name="Designs downloaded",
                                            help_text="How many designs were downloaded by others.")
-    events_played = models.IntegerField(blank=True, null=False, verbose_name="Events released",
+    events_played = models.IntegerField(blank=True, null=False, verbose_name="Events driven by others",
                                           help_text="How many events were played by others.")
 
-    tunings_favd = models.IntegerField(blank=True, null=False, verbose_name="Tunings released",
+    tunings_favd = models.IntegerField(blank=True, null=False, verbose_name="Tunings favoured",
                                            help_text="How many tunings were favored by others.")
-    designs_favd = models.IntegerField(blank=True, null=False, verbose_name="Designs released",
+    designs_favd = models.IntegerField(blank=True, null=False, verbose_name="Designs favoured",
                                            help_text="How many designs were favored by others.")
-    events_favd = models.IntegerField(blank=True, null=False, verbose_name="Events released",
+    events_favd = models.IntegerField(blank=True, null=False, verbose_name="Events favoured",
                                           help_text="How many events were favored by others.")
 
     cash = models.IntegerField(blank=True, null=False, verbose_name="Cash", help_text="How much cash is on the bank.")
