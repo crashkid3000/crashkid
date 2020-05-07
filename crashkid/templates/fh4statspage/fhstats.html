@@ -1,0 +1,135 @@
+{% extends "default.html" %}
+{% load fhstats %}
+{% block cs_content %}
+
+<div class="border border-primary rounded-lg">
+    <div class="row">
+        {% render_forza_stats %}
+    </div>
+    <div class="row">
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Freigegebene Tunings</h5>
+                {{ self.tunings_released }}
+            </div>
+        </div>
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Freigegebene Designs</h5>
+                {{ self.designs_released }}
+            </div>
+        </div>
+        <div class="col border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Freigegebene Blaupausen</h5>
+                {{ self.events_released }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Tuning-Downloads</h5>
+                {{ self.tunings_downloaded }}
+            </div>
+        </div>
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Design-Downloads</h5>
+                {{ self.designs_downloaded }}
+            </div>
+        </div>
+        <div class="col border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Blaupausen-Downloads</h5>
+                {{ self.events_played }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Tunings Favorisiert</h5>
+                {{ self.tunings_favd }}
+            </div>
+        </div>
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Designs Favorisiert</h5>
+                {{ self.designs_favd }}
+            </div>
+        </div>
+        <div class="col border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Events Favorisiert</h5>
+                {{ self.events_favd }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Kontostand</h5>
+                {{ self.cash }} Cr.
+            </div>
+        </div>
+        <div class="col border-right border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Verdientes Geld</h5>
+                {{ self.total_income }} Cr.
+            </div>
+        </div>
+        <div class="col border-bottom">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Wert aller Autos</h5>
+                {{ self.garage_value }} Cr.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col border-right">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Verdiente Skillpunkte</h5>
+                {{ self.total_skillpoints }}
+            </div>
+        </div>
+        <div class="col border-right">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Ultimative Fähigkeiten</h5>
+                {{ self.ultimate_skills }}
+            </div>
+        </div>
+        <div class="col">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Höchste Fähigkeitswertung</h5>
+                {{ self.highest_skillscore }}
+            </div>
+        </div>
+    </div>
+
+    {% comment %}
+    <div class="row">
+        <div class="col border-right border-bottom?">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5>Freigegebene Tunings</h5>
+                {{ self.tunings_released }}
+            </div>
+        </div>
+        <div class="col border-right  border-bottom?">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5><!-- TITLE --></h5>
+                {{ self.<!--VALUE--> }}
+            </div>
+        </div>
+        <div class="col">
+            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+                <h5><!-- TITLE --></h5>
+                {{ self.<!--VALUE--> }}
+            </div>
+        </div>
+    </div>
+    {% endcomment%}
+
+</div>
+
+{% endblock %}

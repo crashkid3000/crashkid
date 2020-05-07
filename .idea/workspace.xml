@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e65bc09-a637-487d-bc95-5b4ae5260bee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crashkid/templates/fh4statspage/api_fhstats.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crashkid/templates/fh4statspage/fhstats.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fh4statspage/templatetags/statsrequests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crashkid/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/crashkid/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/overview/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/overview/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crashkid/templates/overview/overview_track.html" beforeDir="false" afterPath="$PROJECT_DIR$/crashkid/templates/overview/overview_track.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fh4statspage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/fh4statspage/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startpage/wagtail_hooks.py" beforeDir="false" afterPath="$PROJECT_DIR$/startpage/wagtail_hooks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,16 +99,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/quicktest.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

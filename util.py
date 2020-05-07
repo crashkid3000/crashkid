@@ -1,6 +1,7 @@
 import urllib.request as request
 from http.client import HTTPResponse
 import json
+import re
 import configparser
 from urllib.error import HTTPError
 import crashkid.settings.base as settings
@@ -59,13 +60,29 @@ def retrieve_xboxlive_stats_crashkid(gameid):
         return {}
 
 
-def improve_dict_access_for_fh4_stats(stats):
+def improve_dict_access_for_fh_stats(stats):
     """Improves the atrocious handling of the response comiing from crashkid's Forza Horizon 4 player stats"""
     retVal = {}
-    retVal[stats['statlistscollection'][0]['stats'][0]['name']] = stats['statlistscollection'][0]['stats'][0]['value']
-    for i in range(len(stats['groups'][0]['statlistscollection'][0]['stats'])):
-        if 'value' in stats['groups'][0]['statlistscollection'][0]['stats'][i - 1].keys():
-            retVal[stats['groups'][0]['statlistscollection'][0]['stats'][i - 1]['name']] = stats['groups'][0]['statlistscollection'][0]['stats'][i - 1]['value']
+    counter = 0
+    for counter in range(len(stats['groups'][0]['statlistscollection'][0]['stats'])):
+        retVal[counter] = {}
+        retVal[counter]['name'] = stats['groups'][0]['statlistscollection'][0]['stats'][counter]['name']
+        try:
+            retVal[counter]['value'] = stats['groups'][0]['statlistscollection'][0]['stats'][counter]['value']
+        except KeyError:
+            retVal[counter]['value'] = None
+        retVal[counter]['display'] = stats['groups'][0]['statlistscollection'][0]['stats'][counter]['groupproperties']['DisplayName']
+    retVal_LenAfterFirstLoop = len(retVal)
+    for counter in range(len(stats['statlistscollection'][0]['stats'])):
+        retVal[counter + retVal_LenAfterFirstLoop] = {}
+        retVal[counter + retVal_LenAfterFirstLoop]['name'] = stats['statlistscollection'][0]['stats'][counter]['name']
+        try:
+            retVal[counter + retVal_LenAfterFirstLoop]['value'] = stats['statlistscollection'][0]['stats'][counter]['value']
+        except KeyError:
+            retVal[counter + retVal_LenAfterFirstLoop]['value'] = None
+        name_wordlist = re.findall('[A-Z][^A-Z]*', stats['statlistscollection'][0]['stats'][counter]['name'])  # finds all words in CamelCase and puts them in a seperate list entry
+        retVal[counter + retVal_LenAfterFirstLoop]['display'] = ' '.join(name_wordlist)
+
     return retVal
 
 

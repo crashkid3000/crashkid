@@ -86,7 +86,7 @@ def register_keyboard_key_styling(features):
     # Step one - define variables
     feature_name = "keybrdkey"  # the name of this feature
     type_ = "KEYBOARD_KEY"  # what it's called like in the DB
-    tag = "span"  # the HTML Tag coming out of this
+    tag = "kbd"  # the HTML Tag coming out of this
 
     # Step 2 - create control reference for Draftail
     control = {
@@ -112,7 +112,7 @@ def register_keyboard_key_styling(features):
             "style_map": {
                 type_: {
                     "element": tag,
-                    "props": {"class": "badge badge-primary",
+                    "props": {"class": "",
                               "style": "", }
                 }
             }
