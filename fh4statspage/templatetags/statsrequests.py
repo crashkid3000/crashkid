@@ -12,6 +12,7 @@ def render_forza_stats(context):
     retVal = {
         'request': context,
     }
+    print("    >>> id: " + context["curr_page_id"])
     curr_page = FHStatsPage.objects.filter(id=context["curr_page_id"])
     curr_page = curr_page[0]
     if (datetime.now(timezone.utc) - curr_page.apistats.object_last_updated).days >= 1:  # if at least 1 day passed since last update
