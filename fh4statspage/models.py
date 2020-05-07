@@ -1,7 +1,9 @@
 from django.db import models
 from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
 # Create your models here.
+
 
 class FHStats(models.Model):
     """This model saves data from Forza Horizon games that can be retrieved from the API"""
@@ -12,6 +14,7 @@ class FHStats(models.Model):
     object_last_updated = models.DateTimeField(auto_now_add=True, blank=False, null=False,
                                                verbose_name="last update of object",
                                                help_text="When this object was last updated")
+
 
 class FHStatsPage(Page):
 
@@ -55,6 +58,35 @@ class FHStatsPage(Page):
         blank=True,
         null=True,
     )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("game"),
+        MultiFieldPanel([
+            FieldPanel("tunings_released"),
+            FieldPanel("designs_released"),
+            FieldPanel("events_released"),
+        ], heading="1st row"),
+        MultiFieldPanel([
+            FieldPanel("tunings_downloaded"),
+            FieldPanel("designs_downloaded"),
+            FieldPanel("events_played"),
+        ], heading="2nd row"),
+        MultiFieldPanel([
+            FieldPanel("tunings_favd"),
+            FieldPanel("designs_favd"),
+            FieldPanel("events_favd"),
+        ], heading="3rd row"),
+        MultiFieldPanel([
+            FieldPanel("cash"),
+            FieldPanel("total_income"),
+            FieldPanel("garage_value"),
+        ], heading="4th row"),
+        MultiFieldPanel([
+            FieldPanel("total_skillpoints"),
+            FieldPanel("ultimate_skills"),
+            FieldPanel("highest_skillscore"),
+        ], heading="5th row"),
+    ]
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, args, kwargs)
