@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'blog',
     'contentpages',
     'githubpage',
+    'fh4statspage',
 
     'search',
 
