@@ -142,3 +142,4 @@ quicktest.py
 *.pyc
 *.pyc
 numseps.ini
+*/migrations/*
