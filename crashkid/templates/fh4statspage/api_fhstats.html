@@ -1,20 +1,21 @@
 {% load crashk_utils %}
 
-<div class="col text-center border-right border-bottom">
-    <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+<div class="col text-center border-right border-bottom ml-3 p-0">
+    <div class="m-1 ml-2">
         <h5>Spielzeit</h5>
-        {% divide_rounded {{ apistats.playtime }} 60.0 %}h
+        {% divide_rounded  apistats.playtime 60.0 as playtime %}
+        {% if apistats %}{% format_number playtime %} {% else %} n/A {% endif %}h
     </div>
 </div>
-<div class="col text-center border-right border-bottom">
-    <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+<div class="col text-center border-right border-bottom p-0">
+    <div class="m-1 ml-2">
         <h5>Autos im Besitz</h5>
-        {{ apistats.cars_owned }}
+        {% if apistats %}{% format_number  apistats.cars_owned %}{% else %} n/A {% endif %}
     </div>
 </div>
-<div class="col text-center border-bottom">
-    <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+<div class="col text-center border-bottom mr-3 p-0">
+    <div class="m-1 ml-2">
         <h5>XP</h5>
-        {{ apistats.influence }}
+        {% if apistats %}{% format_number  apistats.influence %}{% else %} n/A {% endif %}
     </div>
 </div>

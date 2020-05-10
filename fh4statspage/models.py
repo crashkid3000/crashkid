@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.core.fields import RichTextField
 
 # Create your models here.
 
@@ -59,6 +60,8 @@ class FHStatsPage(Page):
         null=True,
     )
 
+    some_additional_text = RichTextField(null=False, blank=True, verbose_name="Additional text", help_text="Some additional text that is displayed below the stats box")
+
     content_panels = Page.content_panels + [
         FieldPanel("game"),
         MultiFieldPanel([
@@ -86,6 +89,7 @@ class FHStatsPage(Page):
             FieldPanel("ultimate_skills"),
             FieldPanel("highest_skillscore"),
         ], heading="5th row"),
+        FieldPanel("some_additional_text"),
     ]
 
     def get_context(self, request, *args, **kwargs):

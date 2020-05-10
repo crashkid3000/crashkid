@@ -49,3 +49,7 @@
     max-height:100px;
     display:inline-block;
 }
+
+.borderwidth-2 {
+    border-width:2px !important;
+}

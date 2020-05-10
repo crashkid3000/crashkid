@@ -8,6 +8,8 @@
 {% if self.subheading %}
 <span style="margin-bottom:2em"><h2 class="text-muted"><i>{{ self.subheading }}</i></h2></span>
 {% endif %}
+
 {{ self.content | richtext }}
+
 
 {% endblock %}

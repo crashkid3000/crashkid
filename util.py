@@ -100,16 +100,16 @@ def format_number(num, lang=settings.LANGUAGE_CODE):
     nustring = ""  # new string
     code = lang.split("-")[0]  # the language code we will use to search in teh number config INI file
     cfg = configparser.ConfigParser()
-    cfg.read('/home/crashkid3000/crashkid/static/numseps.ini')
+    cfg.read(local.LOCAL_NUMBER_FORMATS_FILE)
     thousands = cfg[code]['thousands'].replace('"', '')
     decimal = cfg[code]['decimal'].replace('"', '')
     num_parts = str(num).split('.')  # split at the '.' character, as that's the decimal separator hard-coded into python for float
     reverse_first_part = num_parts[0][::-1]
     for i in range(len(reverse_first_part)):
         nustring += reverse_first_part[i]
-        if reverse_first_part[i] == '0':
+        if reverse_first_part[i].isdigit():
             zero_counter += 1
-        if zero_counter == 3:
+        if zero_counter == 3 and i + 1 < len(reverse_first_part):
             zero_counter = 0
             nustring += thousands
     retVal = nustring[::-1]

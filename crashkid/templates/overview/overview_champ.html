@@ -3,21 +3,25 @@
     <div class="row">
     <div class="col-12">
     {% image champ.championship_image height-480 as champ_image %}
-      <div class="card mb-3 justify-content-center" style="display:inline-flex">
-          <h3 class="card-header">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}<span style="text-center">{{ champ.name }}</span>{% endif %}</h3>
-      <div class="card-body">
+      <div class="card mb-3 justify-content-center container-fluid p-0"> {# container-fluid: force element's width to be as wide as parent #}
+          <h3 class="card-header text-center">{% if champ_image %}<img src="{{ event_image.url }}" style="object-fit:contain" class="center"/>{% else %}{{ champ.name }}{% endif %}</h3>
+      <div class="card-body pb-0">
           <h5 class="card-title">{{ champ.get_type_display }} | Preisgeld: {% format_number champ.prize_money %} Cr.</h5>
           <p>{{ champ.description }}</p>
           {% if champ.further_prize %}
           <p>Weiterer Preis: {{ champ.further_prize }}</p>
           {% endif %}
       </div>
-      <hr class="mr-4 center text-center">
-      <ul class="list-group list-group-flush">
+      <hr class="mx-4 my-0 center text-center">
+      <ul class="list-group list-group-flush text-center">
           <li class="list-group-item">
               <div class="row">
                   {% for event in champ.events.all %}
-                        <div class="col" style="border-left:1px solid #AAAAA;margin:auto">
+                      {% if forloop.first %}
+                        <div class="col">
+                      {% else %}
+                        <div class="col border-left">
+                      {%endif %}
                             <a href="/fh4_events?id={% subtract event.id 1 %}">
                             {% if event.event_image %}
                                 {% image event.event_image fill-200x112 as event_thumbnail %}

@@ -1,135 +1,141 @@
 {% extends "default.html" %}
 {% load statsrequests %}
+{% load crashk_utils %}
+{% load wagtailcore_tags %}
 {% block cs_content %}
 
-<div class="border border-primary rounded-lg">
+<div class="col-10 col-md-12">
+    <h1> {{self.title }}</h1>
+    {{ self.some_additional_text | richtext }}
+</div>
+
+<div class="border border-primary rounded-lg borderwidth-2">
     <div class="row">
         {% render_forza_stats %}
     </div>
     <div class="row">
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Freigegebene Tunings</h5>
-                {{ self.tunings_released }}
+                {% format_number self.tunings_released %}
             </div>
         </div>
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom p-0">
+            <div class="m-1 ml-2">
                 <h5>Freigegebene Designs</h5>
-                {{ self.designs_released }}
+                {% format_number self.designs_released %}
             </div>
         </div>
-        <div class="col border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-bottom text-center mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Freigegebene Blaupausen</h5>
-                {{ self.events_released }}
+                {% format_number self.events_released %}
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Tuning-Downloads</h5>
-                {{ self.tunings_downloaded }}
+                {% format_number self.tunings_downloaded %}
             </div>
         </div>
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom p-0">
+            <div class="m-1 ml-2">
                 <h5>Design-Downloads</h5>
-                {{ self.designs_downloaded }}
+                {% format_number self.designs_downloaded %}
             </div>
         </div>
-        <div class="col border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-bottom text-center mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Blaupausen-Downloads</h5>
-                {{ self.events_played }}
+                {% format_number self.events_played %}
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Tunings Favorisiert</h5>
-                {{ self.tunings_favd }}
+                {% format_number self.tunings_favd %}
             </div>
         </div>
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom p-0">
+            <div class="m-1 ml-2">
                 <h5>Designs Favorisiert</h5>
-                {{ self.designs_favd }}
+                {% format_number self.designs_favd %}
             </div>
         </div>
-        <div class="col border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-bottom text-center mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Events Favorisiert</h5>
-                {{ self.events_favd }}
+                {% format_number self.events_favd %}
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Kontostand</h5>
-                {{ self.cash }} Cr.
+                {% format_number self.cash %} Cr.
             </div>
         </div>
-        <div class="col border-right border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center border-bottom p-0">
+            <div class="m-1 ml-2">
                 <h5>Verdientes Geld</h5>
-                {{ self.total_income }} Cr.
+                {% format_number self.total_income %} Cr.
             </div>
         </div>
-        <div class="col border-bottom">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-bottom text-center mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Wert aller Autos</h5>
-                {{ self.garage_value }} Cr.
+                {% format_number self.garage_value %} Cr.
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col border-right">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Verdiente Skillpunkte</h5>
-                {{ self.total_skillpoints }}
+                {% format_number self.total_skillpoints %}
             </div>
         </div>
-        <div class="col border-right">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right text-center p-0">
+            <div class="m-1 ml-2">
                 <h5>Ultimative Fähigkeiten</h5>
-                {{ self.ultimate_skills }}
+                {% format_number self.ultimate_skills %}
             </div>
         </div>
-        <div class="col">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col  text-center mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Höchste Fähigkeitswertung</h5>
-                {{ self.highest_skillscore }}
+                {% format_number self.highest_skillscore %}
             </div>
         </div>
     </div>
 
     {% comment %}
     <div class="row">
-        <div class="col border-right border-bottom?">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right ml-3 p-0">
+            <div class="m-1 ml-2">
                 <h5>Freigegebene Tunings</h5>
-                {{ self.tunings_released }}
+                {% format_number self.tunings_released %}
             </div>
         </div>
-        <div class="col border-right  border-bottom?">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col border-right p-0">
+            <div class="m-1 ml-2">
                 <h5><!-- TITLE --></h5>
-                {{ self.<!--VALUE--> }}
+                {% format_number self.<!--VALUE--> %}
             </div>
         </div>
-        <div class="col">
-            <div style="margin-left:10%;margin-top:2%;margin-top:2%">
+        <div class="col mr-3 p-0">
+            <div class="m-1 ml-2">
                 <h5><!-- TITLE --></h5>
-                {{ self.<!--VALUE--> }}
+                {% format_number self.<!--VALUE--> %}
             </div>
         </div>
     </div>
     {% endcomment%}
-
 </div>
 
 {% endblock %}
