@@ -53,3 +53,8 @@
 .borderwidth-2 {
     border-width:2px !important;
 }
+
+.background-gradient-retro {
+    background: rgb(255,0,100);
+    background: linear-gradient(98deg, rgba(255,0,100,1) 0%, rgba(255,0,212,1) 33%, rgba(43,0,255,1) 100%);
+}

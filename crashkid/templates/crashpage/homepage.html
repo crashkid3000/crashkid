@@ -3,7 +3,7 @@
 {% block cs_content %}
     </div> {# end the container div to make banner go across whole screen #}
     {% image self.banner_bg_image min-1600x900 as bgimg %}
-    <div class="jumbotron" style="background-image:url({{ bgimg.url }});background-position:center;background-size:cover">
+    <div class="jumbotron" {% if bgimg %}style="background-image:url({{ bgimg.url }});background-position:center;background-size:cover" {% endif %}>
         <div class="container">
             <h1 class="display-3" {% if self.banner_is_bg_dark %}style="color:#FFFFFF;text-shadow: 2px 2px #222222"{% endif %}>{{ self.banner_title }}</h1>
             <p class="lead">{{ self.banner_text | richtext }}</p>
