@@ -101,6 +101,7 @@ def format_number(num, lang=settings.LANGUAGE_CODE):
     nustring = ""  # new string
     code = lang.split("-")[0]  # the language code we will use to search in teh number config INI file
     cfg = configparser.ConfigParser()
+    print(local.LOCAL_NUMBER_FORMATS_FILE)
     cfg.read(local.LOCAL_NUMBER_FORMATS_FILE)
     thousands = cfg[code]['thousands'].replace('"', '')
     decimal = cfg[code]['decimal'].replace('"', '')
