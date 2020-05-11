@@ -3,6 +3,7 @@ from http.client import HTTPResponse
 import json
 import re
 import configparser
+import os
 from urllib.error import HTTPError
 import crashkid.settings.base as settings
 import crashkid.settings.local as local
@@ -41,6 +42,7 @@ def retrieve_xboxlive_stats_crashkid(gameid):
     # because the official API sucks
     cfg = configparser.ConfigParser()
     print(local.LOCAL_API_KEYS_FILE)
+    print("Does it exist? " + str(os.path.isfile(local.LOCAL_API_KEYS_FILE)))
     cfg.read(local.LOCAL_API_KEYS_FILE)
     if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
         auth_key = cfg['xbapi']['auth_key']
