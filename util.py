@@ -41,15 +41,13 @@ def retrieve_xboxlive_stats_crashkid(gameid):
     """Asks an unofficial Xbox API about the stats of crashkid3000s achievements/stats for a specified Xbox Live game"""
     # because the official API sucks
     cfg = configparser.ConfigParser()
-    print(local.LOCAL_API_KEYS_FILE)
-    print("Does it exist? " + str(os.path.isfile(local.LOCAL_API_KEYS_FILE)))
     cfg.read(local.LOCAL_API_KEYS_FILE)
     print("cfg contents:")
     print(json.dumps(cfg._sections))
     if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
         auth_key = cfg["xbapi"]["auth_key"]
         xuid = cfg["xbapi"]["xuid"]
-        print("xuid: ")
+        print("xuid: " + xuid)
         req = request.Request('https://xboxapi.com/v2/' + str(xuid) + '/game-stats/' + str(gameid))
         req.add_header('X-Auth', auth_key)
         try:
