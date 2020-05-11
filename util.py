@@ -44,6 +44,7 @@ def retrieve_xboxlive_stats_crashkid(gameid):
     if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
         auth_key = cfg['xbapi']['auth_key']
         xuid = cfg['xbapi']['xuid']
+        print("xuid: ")
         req = request.Request('https://xboxapi.com/v2/' + str(xuid) + '/game-stats/' + str(gameid))
         req.add_header('X-Auth', auth_key)
         try:
