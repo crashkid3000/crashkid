@@ -40,6 +40,7 @@ def retrieve_xboxlive_stats_crashkid(gameid):
     """Asks an unofficial Xbox API about the stats of crashkid3000s achievements/stats for a specified Xbox Live game"""
     # because the official API sucks
     cfg = configparser.ConfigParser()
+    print(local.LOCAL_API_KEYS_FILE)
     cfg.read(local.LOCAL_API_KEYS_FILE)
     if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
         auth_key = cfg['xbapi']['auth_key']
@@ -101,7 +102,6 @@ def format_number(num, lang=settings.LANGUAGE_CODE):
     nustring = ""  # new string
     code = lang.split("-")[0]  # the language code we will use to search in teh number config INI file
     cfg = configparser.ConfigParser()
-    print(local.LOCAL_NUMBER_FORMATS_FILE)
     cfg.read(local.LOCAL_NUMBER_FORMATS_FILE)
     thousands = cfg[code]['thousands'].replace('"', '')
     decimal = cfg[code]['decimal'].replace('"', '')
