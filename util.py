@@ -43,8 +43,8 @@ def retrieve_xboxlive_stats_crashkid(gameid):
     cfg = configparser.ConfigParser()
     cfg.read(local.LOCAL_API_KEYS_FILE)
     if len(cfg.items()) > 0:  # if we could read the dict specified at that address, and there was actually some data in it (see behavior of ConfigParser.read() for more info ony why this is necessary)
-        auth_key = cfg["xbapi"]["auth_key"]
-        xuid = cfg["xbapi"]["xuid"]
+        auth_key = cfg["xbapi"]["auth_key"].replace("'", "")  # remove single quotes, i.e. that character -> '
+        xuid = cfg["xbapi"]["xuid"].replace("'", "")
         print("auth_key: " + auth_key)
         req = request.Request('https://xboxapi.com/v2/' + str(xuid) + '/game-stats/' + str(gameid))
         req.add_header('X-Auth', auth_key)
