@@ -3,15 +3,24 @@
     {% cycle '<div class="row justify-content-center">' '' %} {# opening a new row every other iteration #}
     {% image event.track.track_image height-300 as track_image %}
     {% image event.event_image width-600 as event_image %}
-      <div class="card mb-3 pl-0 pr-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex;"> {#cycle: forces spacing between two cards #}
+      <div class="card {% if event.track.location != '--' %} border-info {% endif %} mb-3 px-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex;"> {#cycle: forces spacing between two cards #}
       <h3 class="card-header">{% if event_image %}<img src="{{ event_image.url }}" style="max-height:4em;object-fit:contain" class="center">{% else %}{{ event.name }}{% endif %}</h3>
       <div class="card-body">
           <h5 class="card-title">{{ event.track.get_type_display }}</h5>
           <h6 class="card-subtitle text-muted">{{ event.track.length_per_round}}km {% if event.track.type == 'R' or event.track.type == 'C' or event.track.type == 'D'%}/ {{ event.laps }} Runde{% if event.laps != 1 %}n{% endif %} {% endif %}</h6>
+          {% if event.track.location != '--' %}
+          <div class="alert alert-dismissible alert-info pb-0">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h6 class="text-info">Strecke außerhalb des Festival-Gebiets</h6> <p>Die Strecke liegt in {{ event.track.get_location_display }} und somit nicht im Hauptgebiet des Horizon Festivals. Du benötigst also Zugriff auf {{ event.track.get_location_display }}, um diese Strecke zu spielen.</p>
+          </div>
+          {% endif %}
       </div>
       <img class="center" style=" object-fit:contain" src="{{ track_image.url }}" alt="{{ track_image.alt }}">
       <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{ event.description }}</li>
+          <li class="list-group-item">
+
+              {{ event.description }}
+          </li>
           <li class="list-group-item">
               <div class="text-center" style="margin-right:1em"><i>Eventdaten:</i></div> {# shift text ever so slightly to the left #}
               <table class="table table-hover table-borderless">

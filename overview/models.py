@@ -221,6 +221,12 @@ class FH4Route(models.Model):
         ('C', 'Offroadkurs')
     ]
 
+    LOCATIONS = [
+        ('--', "Mainland"),
+        ('4f', "Fortune Island"),
+        ('4l', "Lego Valley"),
+    ]
+
     track_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -233,6 +239,7 @@ class FH4Route(models.Model):
     type = models.CharField(max_length=1, blank=False, null=False, choices=TYPES, help_text="What kind of race this is", verbose_name="Track type")
     length_per_round = models.FloatField(blank=False, null=False, help_text="The length (in km) per lap (for circuits)/per race (for sprints)", verbose_name="Lap length")
     name = models.CharField(max_length = 35, blank=False, null=False, default="DEFAULT", help_text="Name of the route", verbose_name="Route name")
+    location = models.CharField(max_length=2, blank=False, null=False, default="--", choices=LOCATIONS, help_text="Where this track can be found", verbose_name="Track location")
 
     def __str__(self):
         return self.name + " (" + self.get_type_display() + ")"
@@ -244,6 +251,9 @@ class FH4Route(models.Model):
             FieldPanel("type"),
             FieldPanel("length_per_round"),
         ]),
+        FieldRowPanel([
+            FieldPanel("location")
+        ])
     ]
 
     class Meta:
