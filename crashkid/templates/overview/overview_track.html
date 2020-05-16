@@ -5,7 +5,7 @@
     {% image event.event_image width-600 as event_image %}
       <div class="card {% if event.track.location != '--' %} border-info {% endif %} mb-3 px-0 {% cycle 'mr-1' 'ml-1' %} col-md" style="display:inline-flex;"> {#cycle: forces spacing between two cards #}
       <h3 class="card-header">{% if event_image %}<img src="{{ event_image.url }}" style="max-height:4em;object-fit:contain" class="center">{% else %}{{ event.name }}{% endif %}</h3>
-      <div class="card-body-noflex">
+      <div class="card-body-noflex mx-4 mt-4">
           <h5 class="card-title">{{ event.track.get_type_display }}</h5>
           <h6 class="card-subtitle text-muted">{{ event.track.length_per_round}}km {% if event.track.type == 'R' or event.track.type == 'C' or event.track.type == 'D'%}/ {{ event.laps }} Runde{% if event.laps != 1 %}n{% endif %} {% endif %}</h6>
           {% if event.track.location != '--' %}
@@ -16,7 +16,7 @@
           {% endif %}
       </div>
 
-      <div class="card-body text-center py-0">
+      <div class="card-body text-center py-5">
           <img class="center" style=" object-fit:contain" src="{{ track_image.url }}" alt="{{ track_image.alt }}">
       </div>
 
