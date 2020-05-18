@@ -2,6 +2,7 @@ from django.db import models
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 from wagtail.core.fields import RichTextField
+import re
 
 # Create your models here.
 
@@ -99,3 +100,84 @@ class FHStatsPage(Page):
 
     class Meta:
         verbose_name = "Forza Stats Page"
+
+
+class CSGOStats(models.Model):
+
+    total_kills = models.IntegerField(blank=True, null=True, help_text="Total ammount of kills", verbose_name="Total kills")
+    total_deaths = models.IntegerField(blank=True, null=True, help_text="Total ammount of deaths", verbose_name="Total deaths")
+    total_planted_bombs = models.IntegerField(blank=True, null=True, help_text="Total ammount of planted bombs", verbose_name="Planted bombs")
+    total_rescued_hostages = models.IntegerField(blank=True, null=True, help_text="Total ammount of rescued hostages", verbose_name="Rescued hostages")
+    total_mvps = models.IntegerField(blank=True, null=True, help_text="Total ammount of MVPs earned", verbose_name="MVPs earned")
+    total_money_earned = models.IntegerField(blank=True, null=True, help_text="Total ammount of money earned", verbose_name="Money earned")
+    total_wins = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won", verbose_name="Rounds won")
+    total_rounds_played = models.IntegerField(blank=True, null=True, help_text="Total ammount of rounds played", verbose_name="Rounds won")
+
+    total_kills_glock = models.IntegerField(blank=True, null=True, help_text="Total ammount of Glock kills", verbose_name="Glock kills")
+    total_kills_hkp2000 = models.IntegerField(blank=True, null=True, help_text="Total ammount of P2000/USP-S kills", verbose_name="P2000/USP-S kills")
+    total_kills_elite = models.IntegerField(blank=True, null=True, help_text="Total ammount of Dual Berettas kills", verbose_name="Dual Berettas kills")
+    total_kills_p250 = models.IntegerField(blank=True, null=True, help_text="Total ammount of P250/CZ-75 Auto kills", verbose_name="P250 kills")
+    total_kills_fiveseven = models.IntegerField(blank=True, null=True, help_text="Total ammount of Five-seveN kills", verbose_name="Five-seveN kills")
+    total_kills_tec9 = models.IntegerField(blank=True, null=True, help_text="Total ammount of Tec-9 kills", verbose_name="Tec-9 kills")
+    total_kills_deagle = models.IntegerField(blank=True, null=True, help_text="Total ammount of Desert Eagle/R8 Revolver kills", verbose_name="Desert Eagle kills")
+    total_kills_nova = models.IntegerField(blank=True, null=True, help_text="Total ammount of Nova kills", verbose_name="Nova kills")
+    total_kills_sawedoff = models.IntegerField(blank=True, null=True, help_text="Total ammount of Sawed-off kills", verbose_name="Sawed-off kills")
+    total_kills_mag7 = models.IntegerField(blank=True, null=True, help_text="Total ammount of MAG-7 kills", verbose_name="MAG-7 kills")
+    total_kills_xm1014 = models.IntegerField(blank=True, null=True, help_text="Total ammount of XM1014 kills", verbose_name="XM1014 kills")
+    total_kills_m249 = models.IntegerField(blank=True, null=True, help_text="Total ammount of M249 kills", verbose_name="M249 kills")
+    total_kills_negev = models.IntegerField(blank=True, null=True, help_text="Total ammount of Negev kills", verbose_name="Negev kills")
+    total_kills_mp9 = models.IntegerField(blank=True, null=True, help_text="Total ammount of MP9 kills", verbose_name="MP9 kills")
+    total_kills_mac10 = models.IntegerField(blank=True, null=True, help_text="Total ammount of MAC-10 kills", verbose_name="MAC-10 kills")
+    total_kills_ump45 = models.IntegerField(blank=True, null=True, help_text="Total ammount of UMP-45 kills", verbose_name="UMP-45 kills")
+    total_kills_bizon = models.IntegerField(blank=True, null=True, help_text="Total ammount of PP-Bizon kills", verbose_name="PP-Bizon kills")
+    total_kills_mp7 = models.IntegerField(blank=True, null=True, help_text="Total ammount of MP7/MP5-SD kills", verbose_name="MP7 kills")
+    total_kills_p90 = models.IntegerField(blank=True, null=True, help_text="Total ammount of P90 kills", verbose_name="P90 kills")
+    total_kills_galilar = models.IntegerField(blank=True, null=True, help_text="Total ammount of Galil AR kills", verbose_name="Galil AR kills")
+    total_kills_famas = models.IntegerField(blank=True, null=True, help_text="Total ammount of FAMAS kills", verbose_name="FAMAS kills")
+    total_kills_ak47 = models.IntegerField(blank=True, null=True, help_text="Total ammount of AK-47 kills", verbose_name="AK-47 kills")
+    total_kills_m4a1 = models.IntegerField(blank=True, null=True, help_text="Total ammount of M4A4/M4A1-S kills", verbose_name="M4A4-M4A1-S kills")
+    total_kills_sg556 = models.IntegerField(blank=True, null=True, help_text="Total ammount of SG553 kills", verbose_name="SG553 kills")
+    total_kills_aug = models.IntegerField(blank=True, null=True, help_text="Total ammount of AUG kills", verbose_name="AUG kills")
+    total_kills_ssg08 = models.IntegerField(blank=True, null=True, help_text="Total ammount of SSG08 kills", verbose_name="SSG08 kills")
+    total_kills_awp = models.IntegerField(blank=True, null=True, help_text="Total ammount of AWP kills", verbose_name="AWP kills")
+    total_kills_scar20 = models.IntegerField(blank=True, null=True, help_text="Total ammount of SCAR-20 kills", verbose_name="SCAR-20 kills")
+    total_kills_g3sg1 = models.IntegerField(blank=True, null=True, help_text="Total ammount of G3SG1 kills", verbose_name="G3SG1 kills")
+
+    total_wins_map_cs_assault = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on cs_assault", verbose_name="cs_assault wins")
+    total_wins_map_cs_italy = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on cs_italy", verbose_name="cs_italy wins")
+    total_wins_map_cs_office = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on cs_office", verbose_name="cs_office wins")
+    total_wins_map_de_aztec = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_aztec", verbose_name="de_aztec wins")
+    total_wins_map_de_cbble = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_cbble", verbose_name="de_cbble wins")
+    total_wins_map_de_dust2 = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_dust2/others", verbose_name="de_dust2/others wins")
+    total_wins_map_de_dust = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_dust", verbose_name="de_dust wins")
+    total_wins_map_de_inferno = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_inferno", verbose_name="de_inferno wins")
+    total_wins_map_de_nuke = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_nuke", verbose_name="de_nuke wins")
+    total_wins_map_de_train = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_train", verbose_name="de_train wins")
+    total_wins_map_de_vertigo = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_vertigo", verbose_name="de_vertigo wins")
+
+
+    def __str__(self):
+        return str("K-D: " + str(self.total_kills) + "-" + str(self.total_deaths))
+
+
+    def sort_weapons_after_kills(self) -> list:
+        attrs = list(vars(self))
+        attrs_and_values = []  # will contain list of tuples containing member name and member values
+        sorted_attrs = []
+        for attr in attrs:
+            if re.match("total_kills_.*", attr):
+                attrs_and_values.append((attr, getattr(self, attr)))
+        sorted_attrs_and_values = sorted(attrs_and_values, key=lambda attribute: attribute[1])[::-1]
+        for attr_and_value in sorted_attrs_and_values:
+            sorted_attrs.append(attr_and_value[0])
+
+    def sort_maps_after_wins(self) -> list:
+        attrs = list(vars(self))
+        attrs_and_values = []  # will contain list of tuples containing member name and member values
+        sorted_attrs = []
+        for attr in attrs:
+            if re.match("total_wins_map_.*", attr):
+                attrs_and_values.append((attr, getattr(self, attr)))
+        sorted_attrs_and_values = sorted(attrs_and_values, key=lambda attribute: attribute[1])[::-1]
+        for attr_and_value in sorted_attrs_and_values:
+            sorted_attrs.append(attr_and_value[0])

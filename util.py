@@ -62,6 +62,29 @@ def retrieve_xboxlive_stats_crashkid(gameid):
         return {}
 
 
+def retrieve_csgo_stats_crashkid() -> dict:
+    """Requests stats from the official Valve API"""
+    cfg = configparser.ConfigParser()
+    cfg.read(local.LOCAL_API_KEYS_FILE)
+    if len(cfg.items()) > 0:
+        auth_key = cfg["steam"]["auth_key"]
+        userid = cfg["steam"]["userid"]
+        csgoid = cfg["steam"]["csgo_aid"]
+        req = request.Request("http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=" + str(csgoid) + "&key=" + str(auth_key) + "&steamid=" + str(userid))
+        try:
+            resp = request.urlopen(req)
+            retVal = json.loads(resp.read())
+            retVal['req_success'] = True
+            return retVal
+        except HTTPError as err:
+            print("HTTP Error! " + str(err))
+            print("---> returning error dict")
+            return {'req_success': False}
+    else:
+        print("Could not read API keys file, or it is empty! Returning and empty dict...")
+        return {}
+
+
 def improve_dict_access_for_fh_stats(stats):
     """Improves the atrocious handling of the response comiing from crashkid's Forza Horizon 4 player stats"""
     retVal = {}
