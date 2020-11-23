@@ -1,0 +1,16 @@
+{% load crashk_utils %}
+{% load wagtailimages_tags %}
+
+{% for mapname, mapwin in mapwins %}
+
+    {% concat "self." mapname as mapicon_name %}
+    {% image self.mapname  max-75x75 as mapicon %}
+    <div class="row">
+        <div class="col">
+            <img src="{{ mapicon.url }}" height="{{ mapicon.height }}" width="{{ mapicon.width }}"/>
+        </div>
+        <div class="col">
+            <h3>{{ mapwin }}</h3><span class="text-muted"> auf {{ mapname }}</span>
+        </div>
+    </div>
+{% endfor %}

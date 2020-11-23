@@ -25,3 +25,8 @@ def format_number(context, num, code=""):
         return util.format_number(num)
     else:
         return util.format_number(num, code)
+
+@register.simple_tag()
+def concat(str1="", str2=""):
+    print("concat = " + str1 + str2)
+    return str1 + str2

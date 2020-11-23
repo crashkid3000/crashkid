@@ -1,0 +1,55 @@
+{% extends "default.html" %}
+{% load statsrequests %}
+{% load crashk_utils %}
+
+{% block cs_content %}
+
+{% refresh_csgo_stats %}
+
+<h2>{{ self.title }}</h2>
+<div>
+    <div class="row" id="stats">
+        <div class="col" id="otherstats">
+            <div class="row">
+                <div class="col">
+                    <h3>{% format_number self.stats.total_kills %}</h3><span class="text-muted"> Kills</span>
+                </div>
+                <div class="col">
+                    <h3>{% format_number self.stats.total_deaths %}</h3><span class="text-muted"> Tode</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>{% format_number self.stats.total_planted_bombs %}</h3><span class="text-muted"> Bomben gelegt</span>
+                </div>
+                <div class="col">
+                    <h3>{% format_number self.stats.total_rescued_hostages %}</h3><span class="text-muted"> Geiseln gerettet</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>{% format_number self.stats.total_mvps %}</h3><span class="text-muted"> MVPs</span>
+                </div>
+                <div class="col">
+                    <h3>${% format_number self.stats.total_money_earned %}</h3><span class="text-muted"> verdient</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>{% format_number self.stats.total_rounds_played %}</h3><span class="text-muted"> Runden gespielt</span>
+                </div>
+                <div class="col">
+                    <h3>{% format_number self.stats.total_wins %}</h3><span class="text-muted"> Runden gewonnen</span>
+                </div>
+            </div>
+
+            {% render_csgo_maps_stats %}
+
+        </div>
+        <div class="col-4" id="weaponkills">
+            {% render_csgo_weapon_stats %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

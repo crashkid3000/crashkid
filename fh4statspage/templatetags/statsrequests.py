@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
+import json
 
 import util
-from fh4statspage.models import FHStatsPage, FHStats
+from fh4statspage.models import FHStatsPage, FHStats, CSGOStats, CSGOStatsPage
 from django import template
 
 register = template.Library()
@@ -50,3 +51,75 @@ def render_forza_stats(context):
             curr_page.apistats = FHStats(playtime=playtime, cars_owned=cars, influence=influence, object_last_updated=datetime.now(timezone.utc))
     retVal["apistats"] = curr_page.apistats
     return retVal
+
+
+@register.simple_tag(takes_context=True)
+def refresh_csgo_stats(context):
+    """Refreshes the CSGO stats after at least 24h have passed since the last update"""
+
+    curr_page = CSGOStatsPage.objects.filter(id=context["curr_page_id"])[0]
+    print(" -> curr_page wurde zugewiesen")
+    if curr_page.stats is None or (datetime.now(timezone.utc) - curr_page.stats.object_last_updated).days >= 1:
+        statsdict = util.retrieve_csgo_stats_crashkid()
+        if "req_success" in statsdict.keys() and statsdict["req_success"] is True:
+            statsdict = statsdict["playerstats"]["stats"]
+            statsmodel = CSGOStats()
+            updatectr = 0
+            for stat in statsdict:
+                if hasattr(statsmodel, stat["name"]):
+                    setattr(statsmodel, stat["name"], stat["value"])
+                    updatectr += 1
+            print(str(updatectr) + " fields updated. :D")
+
+            statsmodel.save()
+            curr_page.stats = statsmodel
+            curr_page.save()
+        else:
+            print("Could not update CSGOStats model!")
+    # return context
+
+
+@register.inclusion_tag('fh4statspage/csgo_weapons.html', takes_context=True)
+def render_csgo_weapon_stats(context):
+    curr_page = CSGOStatsPage.objects.filter(id=context["curr_page_id"])
+    curr_page = curr_page[0]
+    weapon_kills_ordered = curr_page.stats.sort_weapons_after_kills()
+    context["weaponstats"] = weapon_kills_ordered
+    return context
+
+
+@register.simple_tag(takes_context=False)
+def get_readable_weaponame(name=""):
+    irregular_weapon_names = {  # ie those weapon names whose actual name is not just the capitalized weapon name
+        "glock": "Glock-18",
+        "p2k": "P2000/USP-S",
+        "elite": "Dual Berettas",
+        "fiveseven": "Five-seveN",
+        "tec9": "Tec-9",
+        "deagle": "Deagle/R8",
+        "mag7": "MAG-7",
+        "mac10": "MAC-10",
+        "ump45": "UMP-45",
+        "mp7": "MP7/MP5-SD",
+        "bizon": "PP-Bizon",
+        "galil": "Galil AR",
+        "ak47": "AK-47",
+        "m4a1": "M4A4/M4A1-S",
+        "sg556": "SG553",
+        "scar20": "SCAR-20",
+    }
+    if name in irregular_weapon_names:
+        return irregular_weapon_names[name]
+    else:
+        return name.upper()
+
+
+@register.inclusion_tag('fh4statspage/csgo_maps.html', takes_context=True)
+def render_csgo_maps_stats(context):
+    print(context["curr_page_id"])
+    curr_page = CSGOStatsPage.objects.filter(id=context["curr_page_id"])
+    curr_page = curr_page[0]
+    map_wins_ordered = curr_page.stats.sort_maps_after_wins()
+    context["mapwins"] = map_wins_ordered
+    return context
+

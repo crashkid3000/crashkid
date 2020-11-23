@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, HelpPanel, FieldRowPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import RichTextField
 import re
 
@@ -154,11 +155,12 @@ class CSGOStats(models.Model):
     total_wins_map_de_nuke = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_nuke", verbose_name="de_nuke wins")
     total_wins_map_de_train = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_train", verbose_name="de_train wins")
     total_wins_map_de_vertigo = models.IntegerField(blank=True, null=True, help_text="Total amount of rounds won on de_vertigo", verbose_name="de_vertigo wins")
-
+    object_last_updated = models.DateTimeField(auto_now_add=True, blank=False, null=False,
+                                               verbose_name="last update of object",
+                                               help_text="When this object was last updated")
 
     def __str__(self):
         return str("K-D: " + str(self.total_kills) + "-" + str(self.total_deaths))
-
 
     def sort_weapons_after_kills(self) -> list:
         attrs = list(vars(self))
@@ -166,10 +168,12 @@ class CSGOStats(models.Model):
         sorted_attrs = []
         for attr in attrs:
             if re.match("total_kills_.*", attr):
-                attrs_and_values.append((attr, getattr(self, attr)))
+                attr_short = attr.replace("total_kills_", "")
+                attrs_and_values.append((attr_short, getattr(self, attr)))
         sorted_attrs_and_values = sorted(attrs_and_values, key=lambda attribute: attribute[1])[::-1]
         for attr_and_value in sorted_attrs_and_values:
             sorted_attrs.append(attr_and_value[0])
+        return sorted_attrs_and_values
 
     def sort_maps_after_wins(self) -> list:
         attrs = list(vars(self))
@@ -177,7 +181,162 @@ class CSGOStats(models.Model):
         sorted_attrs = []
         for attr in attrs:
             if re.match("total_wins_map_.*", attr):
+                if re.match("total_wins_map_de.*", attr):
+                    attr_short = attr.replace("total_wins_map_de_", "")
+                else:
+                    attr_short = attr.replace("total_wins_map_cs_", "")
                 attrs_and_values.append((attr, getattr(self, attr)))
         sorted_attrs_and_values = sorted(attrs_and_values, key=lambda attribute: attribute[1])[::-1]
         for attr_and_value in sorted_attrs_and_values:
             sorted_attrs.append(attr_and_value[0])
+        return sorted_attrs_and_values
+
+
+class CSGOStatsPage(Page):
+
+    template = "fh4statspage/csgostats.html"
+
+    stats = models.OneToOneField(
+        CSGOStats,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
+    glock = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Glock-18", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    p2k = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für P2000/USP-S", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    elite = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Dual Berettas", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    p250 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für P250/CZ75-A", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    fiveseven = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Five-seveN", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    tec9 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Tec-9", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    deagle = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Deagle/R8 Revolver", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    nova = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Nova", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    sawedoff = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Sawed-off", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    mag7 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für MAG-7", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    xm1014 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für XM1014", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    m249 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für M249", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    negev = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Negev", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    mp9 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für MP9", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    mac10 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für MAC-10", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    ump45 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für UMP-45", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    bizon = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für PP-Bizon", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    mp7 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für MP7/MP5-SD", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    p90 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für P90", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    galil = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für Galil AR", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    famas = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für FAMAS", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    ak47 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für AK-47", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    m4a1 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für M4A4/M4A1-S", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    sg556 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für SG553", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    aug = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für AUG", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    ssg08 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für SSG08", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    awp = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für AWP", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    scar20 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für SCAR-20", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    g3sg1 = models.ForeignKey("wagtailimages.Image", verbose_name="Silhouette für G3SG1", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+
+    assault = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Assault", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    italy = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Italy", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    office = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Office", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    aztec = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Aztec", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    cbble = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Cbble", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    dust2 = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Dust 2", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    dust = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Dust", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    inferno = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Inferno", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    nuke = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Nuke", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    train = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Train", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+    vertigo = models.ForeignKey("wagtailimages.Image", verbose_name="Map-Icon für Vertigo", null=True, blank=False, on_delete=models.SET_NULL, related_name="+")
+
+    content_panels = Page.content_panels + [
+        HelpPanel(content="CSGO-Stats werden automatisch geupdated, weswegen sie hier nicht auftauchen.", heading="CSGO-Stats nicht editierbar"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                ImageChooserPanel("glock"),
+                ImageChooserPanel("p2k"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("elite"),
+                ImageChooserPanel("p250"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("fiveseven"),
+                ImageChooserPanel("tec9"),
+            ]),
+            ImageChooserPanel("deagle"),
+            FieldRowPanel([
+                ImageChooserPanel("nova"),
+                ImageChooserPanel("sawedoff"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("mag7"),
+                ImageChooserPanel("xm1014"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("negev"),
+                ImageChooserPanel("m249"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("mp9"),
+                ImageChooserPanel("mac10"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("ump45"),
+                ImageChooserPanel("mp7"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("bizon"),
+                ImageChooserPanel("p90"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("galil"),
+                ImageChooserPanel("famas"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("ak47"),
+                ImageChooserPanel("m4a1"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("sg556"),
+                ImageChooserPanel("aug"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("ssg08"),
+                ImageChooserPanel("awp"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("scar20"),
+                ImageChooserPanel("g3sg1"),
+            ])
+        ], heading="Weapon silhouettes"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                ImageChooserPanel("assault"),
+                ImageChooserPanel("aztec"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("cbble"),
+                ImageChooserPanel("dust"),
+
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("dust2"),
+                ImageChooserPanel("inferno"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("italy"),
+                ImageChooserPanel("nuke"),
+            ]),
+            FieldRowPanel([
+                ImageChooserPanel("office"),
+                ImageChooserPanel("train"),
+            ]),
+            ImageChooserPanel("vertigo"),
+        ])
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, args, kwargs)
+        context["curr_page_id"] = self.id
+        return context
+
+    class Meta:
+        verbose_name = "CSGO Stats Page"
+

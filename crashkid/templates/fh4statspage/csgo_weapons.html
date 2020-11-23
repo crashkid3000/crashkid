@@ -1,0 +1,22 @@
+{% load crashk_utils %}
+{% load wagtailimages_tags %}
+{% load statsrequests %}
+
+<h3>Kills</h3>
+{% for weaponname, weaponkills in weaponstats %}
+    {% if forloop.first %}
+        {% image self.weaponname max-105x70 as weaponimg %}
+        <div class="row">
+            <div class="col">
+                <img src="{{ weaponimg.url }}" width="{{ weaponimg.width }}" height="{{ weaponimg.height }}"/><h3>{{ weaponkills }}</h3><span class="font-weight-bold"> {% get_readable_weaponame weaponname %}</span>
+            </div>
+        </div>
+    {% else %}
+        {% image self.weaponname max-70x50 as weaponimg %}
+        <div class="row">
+            <div class="col">
+                <img src="{{ weaponimg.url }}" width="{{ weaponimg.width }}" height="{{ weaponimg.height }}"/><h4>{{ weaponkills }}</h4><span class="text-muted"> {% get_readable_weaponame weaponname %}</span>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
