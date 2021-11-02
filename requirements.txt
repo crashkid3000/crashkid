@@ -7,7 +7,6 @@ django-modelcluster==5.1
 django-taggit==1.5.1
 django-treebeard==4.5.1
 djangorestframework==3.12.4
-draftjs-exporter==4.1.2
 html5lib==1.1
 idna==3.2
 l18n==2020.6.1
